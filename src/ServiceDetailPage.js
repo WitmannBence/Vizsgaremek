@@ -65,8 +65,6 @@ function ServiceDetailPage() {
                 <strong>Created At:</strong> {new Date(service?.createdAt).toLocaleString() || "N/A"}
               </p>
             </div>
-            <h3 className="additional-info-title">Additional Information:</h3>
-            <p className="additional-info">{service?.additionalInfo || "No additional info available"}</p>
           </div>
         </div>
         <Link to="/services" className="cta-button">

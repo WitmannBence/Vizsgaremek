@@ -22,12 +22,10 @@ export default function Card({
       <img className="card-img-top" src="..." alt="Card image cap" />
       <div className="card-body">
         <h5 className="card-title">{serviceName}</h5>
-        <p className="card-text"><strong>Description:</strong> {description}</p>
         <p><strong>Category:</strong> {category}</p>
         <p><strong>Time Cost:</strong> {timeCost}</p>
         <p><strong>Created At:</strong> {new Date(createdAt).toLocaleString()}</p>
-        <h3>Additional Information:</h3>
-        <p>{additionalInfo}</p> {/* Display additional information here */}
+      
 
         {/* Button to view details */}
         <button className="btn btn-primary" onClick={handleViewDetails}>

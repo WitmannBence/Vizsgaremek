@@ -26,7 +26,6 @@ function ServicesPage() {
           serviceId={service.serviceId} // Pass serviceId to Card
           serviceName={service.serviceName}
           timeCost={service.timeCost}
-          description={service.description}
           category={service.category}
           createdAt={service.createdAt}
         />
