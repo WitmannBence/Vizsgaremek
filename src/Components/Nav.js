@@ -4,15 +4,15 @@ import { Link, useNavigate } from 'react-router-dom';
 export default function Navbar() {
     const token = localStorage.getItem("token");
     const username = localStorage.getItem("username");
+    const userID = localStorage.getItem("userID");
     const navigate = useNavigate();
-    console.log(token);
 
     const handleLogout = () => {
         // Handle logout by clearing localStorage and redirecting
         localStorage.removeItem("token");
         localStorage.removeItem("username");
-        // Add your navigation logic, e.g., redirect to home or login
-        navigate("/");
+        localStorage.removeItem("userID");
+        navigate("/"); // Redirect to home after logout
     };
 
     return (
@@ -29,11 +29,15 @@ export default function Navbar() {
                     </li>
                 </ul>
 
-                {/* This ul will be right-aligned */}
+                {/* Right-aligned section */}
                 <ul className="navbar-nav" style={{ marginLeft: "auto", textAlign: "right" }}>
                     {username && (
-                        <li className="nav-item username-item" style={{ marginRight: "20px" }}>
+                        <li className="nav-item username-item" style={{ marginRight: "20px", display: "flex", alignItems: "center" }}>
                             <a className="nav-link">Szia, {username}!</a>
+                            <Link to="/Profile">
+                            <i className="bi bi-person-circle" style={{ fontSize: "1.5rem", marginRight: "8px", }}></i>
+                            </Link>
+                            
                         </li>
                     )}
 

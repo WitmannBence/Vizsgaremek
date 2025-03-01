@@ -40,9 +40,11 @@ const LoginPage = () => {
             if (loginResponse.ok) {
                 const loggedInUser = await loginResponse.json();
                 const token = loggedInUser.token; // Or whatever the token is called in the response
-                const username = loggedInUser.felhasznaloNev
+                const username = loggedInUser.felhasznaloNev;
+                const userID = loggedInUser.userID;
                 localStorage.setItem("token", token); // Store the token
-                localStorage.setItem("username",username )
+                localStorage.setItem("username",username );
+                localStorage.setItem("userID", userID);
                 alert('Login successful!');
                 console.log('Logged-in user:', loggedInUser);
 

@@ -32,7 +32,7 @@ export default function Card({
           Bővebben
         </button>
         <button className="btn btn-secondary ms-2">
-          Másik gomb
+          Megveszem!
         </button>
       </div>
     </div>

@@ -1,4 +1,3 @@
-/* Global Styles */
 body,
 html {
   margin: 0;
@@ -149,6 +148,12 @@ html {
 .additional-info {
   color: #4b5563;
   line-height: 1.6;
+}
+.profile-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none; /* Removes underline */
+  color: inherit;        /* Inherits the color of surrounding text */
 }
 
 /* Responsive Design */
