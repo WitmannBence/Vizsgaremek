@@ -3,6 +3,7 @@ import "./App.css";
 import Card from "./Components/Card";
 import axios from "axios";
 
+
 function ServicesPage() {
   const [data, setData] = useState([]);
 
@@ -19,7 +20,7 @@ function ServicesPage() {
   }, []);
 
   return (
-    <div className="servicespage full-screen">
+    <div className="servicespage mainBackground">
       {data.map((service) => (
         <Card
           key={service.serviceId}

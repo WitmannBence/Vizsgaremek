@@ -9,6 +9,7 @@ import ServiceDetailPage from './ServiceDetailPage';
 import ProfilePage from './ProfilePage';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
+
 const App = () => {
     
     return (

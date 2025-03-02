@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; 
 
 export default function Navbar() {
     const token = localStorage.getItem("token");
@@ -16,16 +16,18 @@ export default function Navbar() {
     };
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand" href="#">Navbar</a>
+        <nav className="navbar navbar-expand-lg navbar-light ">
+            <img className="ms-4" src={`${process.env.PUBLIC_URL}/favicon.ico`} alt="Logo" style={{ width: '30px', height: '30px'}}/>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav mr-auto">
-                    <li className="nav-item">
-                        <Link to="/" className="nav-link">Home <span className="sr-only"></span></Link>
+                    <li className="nav-item ms-4">
+                        <Link to={username ? "/Services" : "/"} className="nav-link">
+                            <strong className='fs-4'>Home</strong> <span className="sr-only"></span>
+                        </Link>                        
                     </li>
                 </ul>
 
@@ -43,7 +45,7 @@ export default function Navbar() {
 
                     {/* Conditional rendering for the logout button */}
                     {token && (
-                        <li className="nav-item logout-item">
+                        <li className="nav-item logout-item me-4">
                             <button className="nav-link" onClick={handleLogout}>Logout</button>
                         </li>
                     )}

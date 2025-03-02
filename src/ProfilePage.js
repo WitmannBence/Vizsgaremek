@@ -6,26 +6,27 @@ const ProfilePage = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Fetch services on component mount
   useEffect(() => {
-    const userId = localStorage.getItem("userID");
+    fetchServices();
+  }, []);
+
+  // Fetch services function
+  const fetchServices = () => {
+    const userId = localStorage.getItem("userID"); // Getting user ID for fetching services
 
     if (!userId) {
       console.error("User ID not found in localStorage");
-      navigate("/login"); // Redirect to login page if userID is not found
+      navigate("/login"); // Redirect to login if userId doesn't exist
       return;
     }
 
-    console.log("User ID from localStorage:", userId);
-
     fetch(`http://localhost:5293/api/Service/ServicesByUSERID/${userId}`)
       .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch services data");
-        }
+        if (!response.ok) throw new Error("Failed to fetch services data");
         return response.json();
       })
       .then((data) => {
-        console.log("Fetched services data:", data);
         setServices(Array.isArray(data) ? data : []);
         setLoading(false);
       })
@@ -33,7 +34,48 @@ const ProfilePage = () => {
         console.error("Error fetching services:", error);
         setLoading(false);
       });
-  }, [navigate]);
+  };
+
+  // Handle delete service function
+  const handleDeleteService = (serviceId) => {
+    const token = localStorage.getItem("token"); // Get the token (uId)
+
+    if (!token) {
+      console.error("Token not found in localStorage");
+      return;
+    }
+
+    // Confirmation dialog before deletion
+    if (!window.confirm("Are you sure you want to delete this service?")) return;
+
+    // Send DELETE request to the API with serviceId and uId (token)
+    fetch(`http://localhost:5293/api/Service?serviceId=${serviceId}&uId=${token}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.status === 401) {
+          console.log("Token expired. Redirecting to login.");
+          navigate("/"); // Redirect to login if token is expired
+          return;
+        }
+        if (!response.ok) throw new Error("Failed to delete service");
+        return response.json();
+      })
+      .then(() => {
+        console.log(`Service ${serviceId} deleted successfully`);
+
+        // Wait for 0.5 seconds before refreshing the services list
+        setTimeout(() => {
+          // Update the state to reflect the service deletion
+          setServices((prevServices) =>
+            prevServices.filter((service) => service.serviceId !== serviceId)
+          );
+          // Fetch the updated list of services
+          fetchServices();
+        }, 1100); // Delay by 0.5 seconds
+      })
+      .catch((error) => console.error("Error deleting service:", error));
+  };
 
   // Helper function to split the array into chunks of 3
   const chunkArray = (arr, size) => {
@@ -69,9 +111,12 @@ const ProfilePage = () => {
                             <p><strong>Description:</strong> {service.description}</p>
                             <p><strong>Created At:</strong> {new Date(service.createdAt).toLocaleString()}</p>
                             <div className="mt-auto">
-                                <button className="btn btn-danger w-100 h-100" onClick={() => handleDeleteService(service.serviceId)}>
-                                    Delete
-                                </button>
+                              <button
+                                className="btn btn-danger w-100 h-100"
+                                onClick={() => handleDeleteService(service.serviceId)}
+                              >
+                                Delete
+                              </button>
                             </div>
                           </div>
                         </div>

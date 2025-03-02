@@ -6,7 +6,14 @@ html {
   height: 100%;
   box-sizing: border-box;
   font-family: "Arial", sans-serif;
-  background-color: #f9fafb;
+  user-select: none; /* Prevents text selection */
+  outline: none;     /* Removes the outline around the element */
+  cursor: default;   /* Optionally, sets the cursor to default */
+  background: linear-gradient(
+        45deg,
+        #afadad,
+        #bab8b8
+        );
 }
 
 .full-screen {
@@ -16,7 +23,6 @@ html {
   align-items: center;
   min-height: 100vh;
   text-align: center;
-  background: linear-gradient(to bottom, #e3e3e3, #f9fafb);
   padding: 2rem;
   box-sizing: border-box;
 }
@@ -84,8 +90,6 @@ html {
   gap: 1.5rem;
   padding: 2rem;
   justify-content: center;
-  max-width: 1600px;
-  margin: 0 auto;
 }
 
 /* Service Detail Page */
@@ -215,6 +219,10 @@ html {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+}
+
+nav{
+  background: whitesmoke;
 }
 
 /* Külön stílusok a username és logout gombhoz */

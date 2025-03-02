@@ -2,13 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './App.css';
 
+
 const Home = () => {
 
     return (
-        <div>
+        <div className="mainBackground">
                 <div className="hero full-screen">
-                    <h1>Time Bank</h1>
-                    <p>Üdvözlünk a Time Bank weboldalán!</p>
+                    <h1><img src={`${process.env.PUBLIC_URL}/favicon.ico`} alt="Logo" style={{ width: '190px', height: '190px',  margin: '10px !important'}}/></h1>
+                    <h2><strong>Üdvözlünk a Time Bank weboldalán!</strong></h2>
                     <div className="feature-cards">
                         <div className="card">
                             <span>🌐</span>
