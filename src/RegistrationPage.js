@@ -82,10 +82,11 @@ const RegistrationPage = () => {
   };
 
   return (
-    <section className="hero full-screen">
-      <h2>Regisztráció</h2>
+    <section className="hero form-card">
+      <h2 className="mb-4">Regisztráció</h2>
       <form onSubmit={handleSubmit}>
-        <input
+      <i className="bi bi-person-fill me-3"></i>
+        <input className="mb-2"
           type="text"
           name="felhasznaloNev"
           placeholder="Felhasználónév"
@@ -94,7 +95,8 @@ const RegistrationPage = () => {
           required
         />
         <br />
-        <input
+        <i className="bi bi-person-fill me-3"></i>
+        <input className="mb-2"
           type="text"
           name="teljesNev"
           placeholder="Teljes név"
@@ -103,7 +105,8 @@ const RegistrationPage = () => {
           required
         />
         <br />
-        <input
+        <i class="bi bi-envelope-fill me-3"></i>
+        <input className="mb-2"
           type="email"
           name="email"
           placeholder="Email"
@@ -112,7 +115,8 @@ const RegistrationPage = () => {
           required
         />
         <br />
-        <input
+        <i class="bi bi-key-fill me-3"></i>
+        <input className="mb-2"
           type="password"
           name="password"
           placeholder="Jelszó"
@@ -121,7 +125,7 @@ const RegistrationPage = () => {
           required
         />
         <br />
-        <button type="submit" className="form-button">
+        <button type="submit" className="form-button mb-1 btn btn-primary">
           Regisztráció
         </button>
       </form>
@@ -131,7 +135,7 @@ const RegistrationPage = () => {
         Már van fiókod? <Link to="/LoginPage">Bejelentkezés</Link>
       </p>
       <Link to="/">
-        <button className="cta-button">Vissza a kezdőlapra</button>
+        <button className="btn btn-secondary">Vissza a kezdőlapra</button>
       </Link>
     </section>
   );
