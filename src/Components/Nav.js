@@ -53,8 +53,8 @@ export default function Navbar() {
 
                     {/* Conditional rendering for the logout button */}
                     {token && (
-                        <li className="nav-item logout-item me-4">
-                            <button className="nav-link" onClick={handleLogout}>Logout</button>
+                        <li className="nav-item me-4">
+                            <button className="btn btn-danger text-white" onClick={handleLogout}>Logout</button>
                         </li>
                     )}
                 </ul>
