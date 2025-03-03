@@ -61,17 +61,19 @@ const LoginPage = () => {
     };
 
     return (
-        <section className="hero full-screen">
-            <h2>Bejelentkezés</h2>
-            <input type="string" placeholder="Felhasználónév" id="username"/>
+        <section className="hero form-card">
+            <h2 className='mb-4 '>Bejelentkezés</h2>
+            <i className="bi bi-person-fill me-3"></i>
+            <input className='mb-2' type="string" placeholder="Felhasználónév" id="username"/>
             <br/>
-            <input type="password" placeholder="Jelszó" id="password"/>
+            <i className="bi bi-key-fill me-3"></i>
+            <input className='mb-2' type="password" placeholder="Jelszó" id="password"/>
             <br/>
-            <button className="form-button" onClick={handleLogin}>Bejelentkezés</button>
+            <button className="btn btn-primary mb-1" onClick={handleLogin}>Bejelentkezés</button>
             <p>Még nincs fiókod? 
             <a href="/RegistrationPage">Regisztráció</a></p>
             <Link to="/">
-            <button className="cta-button" >
+            <button className="btn btn-secondary" >
                 Vissza a kezdőlapra
             </button>
             </Link>
