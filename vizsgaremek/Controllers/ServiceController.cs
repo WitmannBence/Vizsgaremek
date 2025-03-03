@@ -30,14 +30,14 @@ namespace vizsgaremek.Controllers
 
                     int userId = Program.LoggedInUsers[uId].UserId;
 
-                    
+
                     var userExists = await context.Users.AnyAsync(u => u.UserId == userId);
                     if (!userExists)
                     {
                         return BadRequest("A felhasználó nem található az adatbázisban.");
                     }
 
-                 
+
                     service.UserId = userId;
 
                     context.Services.Add(service);
@@ -47,7 +47,7 @@ namespace vizsgaremek.Controllers
                         UserId = userId,
                         ServiceId = service.ServiceId
                     };
-                     context.UserServices.Add(userservice);
+                    context.UserServices.Add(userservice);
                     await context.SaveChangesAsync();
 
                     return Ok("Sikeres rögzítés");
@@ -61,18 +61,18 @@ namespace vizsgaremek.Controllers
         [HttpGet("ServicesByUSERID")]
         public IActionResult GetServices(int id)
         {
-            using (var context = new VizsgaremekContext()) 
+            using (var context = new VizsgaremekContext())
             {
                 try
                 {
-                    
-                  var  keres = context.Services.Where(x => x.UserId == id).ToList();
+
+                    var keres = context.Services.Where(x => x.UserId == id).ToList();
                     if (keres == null || keres.Count == 0)
                     {
                         return NotFound("Nem találtunk szolgáltatást");
                     }
                     else { return Ok(keres); }
-                    
+
 
                 }
                 catch (Exception ex)
@@ -127,7 +127,7 @@ namespace vizsgaremek.Controllers
                 }
             }
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteService(int serviceId, string uId)
         {
             using (var context = new VizsgaremekContext())
