@@ -25,15 +25,20 @@ namespace vizsgaremek.Controllers
                 }
             }
         }
-        [HttpGet("CategorySearch")]
-        public IActionResult CategorySearch(string Name)
+        [HttpGet("CategorySearch/{categoryId}")]
+        public IActionResult CategorySearch(int CategoryID)
         {
             using (var context = new VizsgaremekContext())
             {
                 try
                 {
-                    var keres = context.Categories.Where(c =>c.CategoryName == Name).ToList();
+                    var keres = context.Services.Where(c =>c.CategoryId == CategoryID).ToList();
+                    if (keres == null || keres.Count == 0)
+                    {
+                        return NotFound("Ehhez a kategóriához még nem készült szolgáltatás");
+                    }
                     return Ok(keres);
+
                 }
                 catch (Exception ex)
                 {

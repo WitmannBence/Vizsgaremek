@@ -58,7 +58,7 @@ namespace vizsgaremek.Controllers
                 }
             }
         }
-        [HttpGet("ServicesByUSERID")]
+        [HttpGet("ServicesByUSERID/{id}")]
         public IActionResult GetServices(int id)
         {
             using (var context = new VizsgaremekContext())
@@ -127,7 +127,7 @@ namespace vizsgaremek.Controllers
                 }
             }
         }
-        [HttpDelete("{serviceId}")]
+        [HttpDelete("/{serviceId}")]
         public async Task<IActionResult> DeleteService(int serviceId, string uId)
         {
             using (var context = new VizsgaremekContext())
