@@ -8,6 +8,7 @@ import Nav from './Components/Nav';
 import ServiceDetailPage from './ServiceDetailPage';
 import ProfilePage from './ProfilePage';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import CreateServicePage from './CreateServicePage.js';
 
 
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
             <Route path='/Services' element={<ServicesPage/>}/>
             <Route path="/ServiceDetails/:id" element={<ServiceDetailPage />} />
             <Route path="/Profile" element={<ProfilePage />} />
+            <Route path="/CreateService" element={<CreateServicePage />} />
            </Routes>
         </div>
     );

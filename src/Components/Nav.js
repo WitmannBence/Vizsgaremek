@@ -31,6 +31,14 @@ export default function Navbar() {
                     </li>
                 </ul>
 
+                <ul className="navbar-nav mr-auto">
+                    <li className="nav-item ms-4">
+                        <Link to={"/CreateService"} className="nav-link">
+                            <strong className='fs-4'>Create Service</strong> <span className="sr-only"></span>
+                        </Link>                        
+                    </li>
+                </ul>    
+
                 {/* Right-aligned section */}
                 <ul className="navbar-nav" style={{ marginLeft: "auto", textAlign: "right" }}>
                     {username && (
