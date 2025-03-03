@@ -81,7 +81,7 @@ const CreateServicePage = () => {
           required
         />
         <br />
-        <i className="bi bi-journal me-3"></i>
+        <i className="bi bi-clipboard2-fill me-3"></i>
         <textarea className="mb-2 " style={{width:"188px", verticalAlign: "middle"}}
           name="description"
           placeholder="Leírás"
