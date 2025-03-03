@@ -8,7 +8,7 @@ namespace vizsgaremek.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        [HttpGet("CategorySearch")]
+        [HttpGet("CategoryList")]
         public IActionResult GetCategories() 
         {
             using (var context = new VizsgaremekContext()) 
@@ -16,6 +16,23 @@ namespace vizsgaremek.Controllers
                 try
                 {
                     var keres = context.Categories.ToList();
+                    return Ok(keres);
+                }
+                catch (Exception ex)
+                {
+
+                    return BadRequest(ex.Message);
+                }
+            }
+        }
+        [HttpGet("CategorySearch")]
+        public IActionResult CategorySearch(string Name)
+        {
+            using (var context = new VizsgaremekContext())
+            {
+                try
+                {
+                    var keres = context.Categories.Where(c =>c.CategoryName == Name).ToList();
                     return Ok(keres);
                 }
                 catch (Exception ex)
