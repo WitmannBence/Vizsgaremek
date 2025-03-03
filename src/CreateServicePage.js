@@ -1,15 +1,23 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const CreateServicePage = () => {
   const [formData, setFormData] = useState({
     serviceName: "",
     timeCost: "",
     description: "",
-    categoryId: ""
+    categoryId: "",
   });
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+
+  useEffect(() => {
+    // Fetch categories
+    fetch("http://localhost:5293/api/Category/CategoryList")
+      .then((response) => response.json())
+      .then((data) => setCategories(data))
+      .catch((error) => console.error("Error fetching categories:", error));
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,49 +25,35 @@ const CreateServicePage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-    setSuccess("");
+    setError(null);
+    setSuccess(null);
 
+    // Retrieve the token from localStorage (key is 'token')
     const token = localStorage.getItem("token");
+
     if (!token) {
-      setError("Nem vagy bejelentkezve");
+      setError("User is not logged in.");
       return;
     }
 
-    const serviceData = {
-      serviceId: 0,
-      userId: 0, // The backend assigns this automatically
-      serviceName: formData.serviceName,
-      timeCost: parseInt(formData.timeCost, 10),
-      description: formData.description,
-      createdAt: new Date().toISOString(),
-      categoryId: parseInt(formData.categoryId, 10),
-      category: null,
-      userServices: []
-    };
-
-    try {
-      const response = await fetch(
-        `http://localhost:5293/api/Service?uId=${token}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(serviceData)
-        }
-      );
-
-      const data = await response.text();
-
-      if (response.ok) {
-        setSuccess("Sikeres rögzítés");
-        setFormData({ serviceName: "", timeCost: "", description: "", categoryId: "" });
-      } else {
-        setError(data);
+    // Post service data to the backend with the token in the URL
+    const response = await fetch(
+      `http://localhost:5293/api/Service?uId=${token}`, // Pass token as query parameter
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       }
-    } catch (error) {
-      setError("Hiba történt a kapcsolat során.");
+    );
+
+    const result = await response.text();
+    if (response.ok) {
+      setSuccess(result);
+      setFormData({ serviceName: "", timeCost: "", description: "", categoryId: "" });
+    } else {
+      setError(result);
     }
   };
 
@@ -79,7 +73,7 @@ const CreateServicePage = () => {
         <input
           type="number"
           name="timeCost"
-          placeholder="Időköltség (perc)"
+          placeholder="Időköltség (óra)"
           value={formData.timeCost}
           onChange={handleChange}
           required
@@ -91,24 +85,23 @@ const CreateServicePage = () => {
           value={formData.description}
           onChange={handleChange}
           required
-        />
+        ></textarea>
         <br />
-        <input
-          type="number"
-          name="categoryId"
-          placeholder="Kategória ID"
-          value={formData.categoryId}
-          onChange={handleChange}
-          required
-        />
+        <select name="categoryId" value={formData.categoryId} onChange={handleChange} required>
+          <option value="">Válassz kategóriát</option>
+          {categories.map((category) => (
+            <option key={category.categoryId} value={category.categoryId}>
+              {category.categoryName}
+            </option>
+          ))}
+        </select>
         <br />
-        <button type="submit" className="form-button">Létrehozás</button>
+        <button type="submit" className="form-button">
+          Létrehozás
+        </button>
       </form>
       {error && <p className="error-message">{error}</p>}
       {success && <p className="success-message">{success}</p>}
-      <Link to="/">
-        <button className="cta-button">Vissza a kezdőlapra</button>
-      </Link>
     </section>
   );
 };
