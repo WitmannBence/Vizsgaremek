@@ -247,3 +247,18 @@ nav{
   text-decoration: underline;
 }
 
+.form-card{
+  border: 1px solid #ccc; /* Light gray border */
+  padding: 20px;           /* Padding inside the card */
+  border-radius: 8px;      /* Rounded corners */
+  background-color: white;  /* White background */
+  box-shadow: 10px 30px 125px cyan; /* Subtle shadow */
+  max-width: 600px;        /* Max width for the card */
+  max-height: 500px;
+  margin: 0 auto;          /* Center the card horizontally */
+  margin-top: 14rem;
+  text-align: center;
+  border: solid cyan 2px;
+
+}
+

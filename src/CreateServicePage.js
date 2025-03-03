@@ -58,10 +58,11 @@ const CreateServicePage = () => {
   };
 
   return (
-    <section className="hero full-screen">
-      <h2>Szolgáltatás Létrehozása</h2>
+    <section className="form-card">
+      <h2 className="mb-4">Szolgáltatás Létrehozása</h2>
       <form onSubmit={handleSubmit}>
-        <input
+      <i className="bi bi-megaphone me-3"></i>
+        <input className="mb-2"
           type="text"
           name="serviceName"
           placeholder="Szolgáltatás neve"
@@ -70,7 +71,8 @@ const CreateServicePage = () => {
           required
         />
         <br />
-        <input
+        <i className="bi bi-coin me-3"></i>
+        <input className="mb-2"
           type="number"
           name="timeCost"
           placeholder="Időköltség (óra)"
@@ -79,7 +81,8 @@ const CreateServicePage = () => {
           required
         />
         <br />
-        <textarea
+        <i className="bi bi-journal me-3"></i>
+        <textarea className="mb-2 " style={{width:"188px", verticalAlign: "middle"}}
           name="description"
           placeholder="Leírás"
           value={formData.description}
@@ -87,7 +90,7 @@ const CreateServicePage = () => {
           required
         ></textarea>
         <br />
-        <select name="categoryId" value={formData.categoryId} onChange={handleChange} required>
+        <select className="mb-2 ms-4" name="categoryId" value={formData.categoryId} onChange={handleChange} required>
           <option value="">Válassz kategóriát</option>
           {categories.map((category) => (
             <option key={category.categoryId} value={category.categoryId}>
@@ -96,7 +99,7 @@ const CreateServicePage = () => {
           ))}
         </select>
         <br />
-        <button type="submit" className="form-button">
+        <button type="submit" className="btn btn-primary">
           Létrehozás
         </button>
       </form>
