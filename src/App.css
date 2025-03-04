@@ -252,7 +252,7 @@ nav{
   padding: 20px;           /* Padding inside the card */
   border-radius: 8px;      /* Rounded corners */
   background-color: white;  /* White background */
-  box-shadow: 10px 30px 125px cyan; /* Subtle shadow */
+  box-shadow: 10px 30px 125px grey; /* Subtle shadow */
   max-width: 600px;        /* Max width for the card */
   max-height: 500px;
   margin: 0 auto;          /* Center the card horizontally */

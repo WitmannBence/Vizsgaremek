@@ -42,9 +42,12 @@ const LoginPage = () => {
                 const token = loggedInUser.token; // Or whatever the token is called in the response
                 const username = loggedInUser.felhasznaloNev;
                 const userID = loggedInUser.userID;
+                const timeBalance = loggedInUser.timeBalance
                 localStorage.setItem("token", token); // Store the token
                 localStorage.setItem("username",username );
                 localStorage.setItem("userID", userID);
+                localStorage.setItem("timeBalance", timeBalance);
+                console.log(localStorage.getItem("timeBalance"));
                 alert('Login successful!');
                 console.log('Logged-in user:', loggedInUser);
 

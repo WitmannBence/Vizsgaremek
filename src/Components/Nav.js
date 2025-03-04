@@ -5,6 +5,7 @@ export default function Navbar() {
     const token = localStorage.getItem("token");
     const username = localStorage.getItem("username");
     const userID = localStorage.getItem("userID");
+    const timeBalance = localStorage.getItem("timeBalance")
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -12,6 +13,7 @@ export default function Navbar() {
         localStorage.removeItem("token");
         localStorage.removeItem("username");
         localStorage.removeItem("userID");
+        localStorage.removeItem("timeBalance")
         navigate("/"); // Redirect to home after logout
     };
 
@@ -47,6 +49,7 @@ export default function Navbar() {
                             <Link to="/Profile">
                             <i className="bi bi-person-circle" style={{ fontSize: "1.5rem", marginRight: "8px", }}></i>
                             </Link>
+                            <a className="nav-link">Egyenleged:  {timeBalance} coin</a>
                             
                         </li>
                     )}
