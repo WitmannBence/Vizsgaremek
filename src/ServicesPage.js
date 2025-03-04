@@ -8,7 +8,7 @@ function ServicesPage() {
   const [data, setData] = useState([]);
 
   function Get() {
-    axios.get("http://localhost:5293/api/Service/AllService")
+    axios.get(`${process.env.REACT_APP_PUBLIC_URL}/api/Service/AllService`)
       .then((response) => {
         setData(response.data);
         console.log(response.data);
