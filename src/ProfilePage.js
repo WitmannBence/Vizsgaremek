@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -117,6 +117,9 @@ const ProfilePage = () => {
                               >
                                 Delete
                               </button>
+                              <Link to={"/EditService/" + service.serviceId}>
+                              <button className='btn btn-warning'>Edit</button>
+                              </Link>
                             </div>
                           </div>
                         </div>

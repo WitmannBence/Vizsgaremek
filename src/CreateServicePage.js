@@ -38,7 +38,7 @@ const CreateServicePage = () => {
 
     // Post service data to the backend with the token in the URL
     const response = await fetch(
-      `http://localhost:5293/api/Service?uId=${token}`, // Pass token as query parameter
+      `https://localhost:5243/api/Service?uId=${token}`, // Pass token as query parameter
       {
         method: "POST",
         headers: {

@@ -17,6 +17,8 @@ function ServicesPage() {
 
   useEffect(() => {
     Get();
+
+    document.title = "Time Bank | Services"
   }, []);
 
   return (

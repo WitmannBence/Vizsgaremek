@@ -6,6 +6,7 @@ import './App.css';
 const Home = () => {
 
 const token = localStorage.getItem("token")
+document.title = "Time Bank"
 
     return (
 

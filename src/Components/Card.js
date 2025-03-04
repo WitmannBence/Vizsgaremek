@@ -21,7 +21,7 @@ export default function Card({
 
   
   /*const transactionPost = () => {
-     axios.post(`http://localhost:5293/api/Transaction/purchase?uId=${token}`, {
+     axios.post(`https://localhost:5293/api/Transaction/purchase?uId=${token}`, {
         senderId: Number(userID),
         receiverId: Number(ownerId),
         userServiceId: Number(serviceId),
