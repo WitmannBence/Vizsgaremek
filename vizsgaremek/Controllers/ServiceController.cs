@@ -158,7 +158,7 @@ namespace vizsgaremek.Controllers
                 }
             }
         }
-            [HttpDelete("/{serviceId}")]
+            [HttpDelete]
             public async Task<IActionResult> DeleteService(int serviceId, string uId)
             {
                 using (var context = new VizsgaremekContext())
