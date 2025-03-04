@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.Ocsp;
+using Org.BouncyCastle.Bcpg;
 using vizsgaremek.DTOs;
 using vizsgaremek.Models;
 
@@ -169,9 +170,54 @@ namespace vizsgaremek.Controllers
             }
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateService(int id,Service updatedService, string uId)
+        {
+            using (var context = new VizsgaremekContext())
+            {
+                try
+                {
+                    if (id != updatedService.ServiceId)
+                    {
+                        return BadRequest("ID mismatch.");
+                    }
+
+                    var existingService = await context.Services.FindAsync(id);
+                    if (existingService == null)
+                    {
+                        return NotFound();
+                    }
+
+                    int userID = Program.LoggedInUsers[uId].UserId;
+                    int jog = Program.LoggedInUsers[uId].Jogosultsag;
+
+                    if (existingService.UserId != userID && jog != 9)
+                    {
+                        return Unauthorized("Ez nem a te szolgáltatásod!");
+                    }
+
+                    
+                    existingService.ServiceName = updatedService.ServiceName;
+                    existingService.TimeCost = updatedService.TimeCost;
+                    existingService.Description = updatedService.Description;
+                    existingService.CategoryId = updatedService.CategoryId;
+                    existingService.CreatedAt = updatedService.CreatedAt;
+
+                    await context.SaveChangesAsync();
+
+                    return Ok(existingService);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+        }
 
     }
 }
+
+
 
 
 
