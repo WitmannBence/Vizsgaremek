@@ -5,7 +5,10 @@ import './App.css';
 
 const Home = () => {
 
+const token = localStorage.getItem("token")
+
     return (
+
         <div className="mainBackground">
                 <div className="hero full-screen">
                     <h1><img src={`${process.env.PUBLIC_URL}/favicon.ico`} alt="Logo" style={{ width: '190px', height: '190px',  margin: '10px !important'}}/></h1>
@@ -27,16 +30,20 @@ const Home = () => {
                             <p>Minden felhasználó segíthet másoknak, hogy ingyen hozzáférhessenek.</p>
                         </div>
                     </div>
-                    <Link to="/LoginPage">
-                        <button className="cta-button">
-                            Bejelentkezés
-                        </button>
-                    </Link>
-                    <Link to="/RegistrationPage">
-                    <button className="cta-button">
-                        Regisztrálok
-                    </button>
-                    </Link>
+                    {!token ? ( // Show login/register buttons if token does NOT exist
+  <>
+    <Link to="/LoginPage">
+      <button className="cta-button">Bejelentkezés</button>
+    </Link>
+    <Link to="/RegistrationPage">
+      <button className="cta-button">Regisztrálok</button>
+    </Link>
+  </>
+) : ( // Show new button if token EXISTS
+  <Link to= "/Services">
+    <button className="cta-button">Szolgáltatások</button> 
+  </Link>
+)}
                 </div>
         </div>
     );

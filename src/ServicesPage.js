@@ -29,6 +29,7 @@ function ServicesPage() {
           timeCost={service.timeCost}
           category={service.category}
           createdAt={service.createdAt}
+          ownerId={service.userId}
         />
       ))}
     </div>

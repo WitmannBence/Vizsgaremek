@@ -27,19 +27,32 @@ export default function Navbar() {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav mr-auto">
                     <li className="nav-item ms-4">
-                        <Link to={username ? "/Services" : "/"} className="nav-link">
+                        <Link to={"/"} className="nav-link">
                             <strong className='fs-4'>Home</strong> <span className="sr-only"></span>
                         </Link>                        
                     </li>
                 </ul>
 
                 <ul className="navbar-nav mr-auto">
-                    <li className="nav-item ms-4">
-                        <Link to={"/CreateService"} className="nav-link">
-                            <strong className='fs-4'>Create Service</strong> <span className="sr-only"></span>
-                        </Link>                        
-                    </li>
-                </ul>    
+                    {token && ( // Only render if token exists
+                        <li className="nav-item ms-4">
+                            <Link to="/Services" className="nav-link">
+                              <strong className="fs-4">Szolgáltatások</strong>
+                            </Link>
+                        </li>
+                     )}
+                </ul>
+
+                <ul className="navbar-nav mr-auto">
+                    {token && ( // Only render if token exists
+                        <li className="nav-item ms-4">
+                            <Link to="/CreateService" className="nav-link">
+                              <strong className="fs-4">Create Service</strong>
+                            </Link>
+                        </li>
+                     )}
+                </ul>
+ 
 
                 {/* Right-aligned section */}
                 <ul className="navbar-nav" style={{ marginLeft: "auto", textAlign: "right" }}>
