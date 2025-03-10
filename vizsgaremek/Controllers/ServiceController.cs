@@ -244,9 +244,30 @@ namespace vizsgaremek.Controllers
                     }
                 }
             }
+        [HttpGet("SearchService")]
+        public IActionResult SearchService(string input)
+        {
+            using (var context = new VizsgaremekContext())
+            {
+                try
+                {
+                    var services = context.Services
+                        .Where(s => s.ServiceName.Contains(input) || s.Description.Contains(input))
+                        .Distinct()
+                        .ToList();
 
+                    return Ok(services);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
         }
-    } 
+
+
+    }
+} 
 
 
 

@@ -33,7 +33,7 @@ namespace vizsgaremek.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost] 
         public async Task<IActionResult> Login(LoginDTO loginDTO)
         {
             using (var context = new VizsgaremekContext())
