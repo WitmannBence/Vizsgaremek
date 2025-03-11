@@ -107,11 +107,26 @@ namespace vizsgaremek.Controllers
             {
                 try
                 {
-                    List<Service> services = new List<Service>();
-                    {
-                        services = context.Services.ToList();
+                   
+                    
+                       var services = context.Services.Select(service => new
+                        {
+                            service.ServiceId,
+                            service.UserId,
+                            service.ServiceName,
+                            service.TimeCost,
+                            service.Description,
+                            service.CreatedAt,
+                            service.CategoryId,
+                            FelhasznaloNev = context.Users
+                                .Where(user => user.UserId == service.UserId)
+                                .Select(user => user.FelhasznaloNev)
+                                .FirstOrDefault(),
+                            CategoryName = context.Categories.Where(cat => cat.CategoryId == service.CategoryId).Select(cat => cat.CategoryName).FirstOrDefault(),
+                        }).ToList();
+                        
 
-                    }
+                    
                     return Ok(services);
                 }
                 catch (Exception ex)
