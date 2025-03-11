@@ -88,7 +88,7 @@ const ProfilePage = () => {
 
   return (
     <div className="profile-page container">
-      <h1 className="profile-title">User Profile</h1>
+      <h1 className="profile-title mt-5" style={{textAlign: 'center'}}>User Profile</h1>
 
       {loading ? (
         <div className="loading">Loading user data...</div>
@@ -98,7 +98,7 @@ const ProfilePage = () => {
             <p>No active services found for this user.</p>
           ) : (
             <div>
-              <h3>Your Active Services:</h3>
+              <h3 className='mt-2 mb-5' style={{textAlign: 'center'}}>Your Active Services:</h3>
               <div className="services-list">
                 {chunkArray(services, 3).map((serviceRow, rowIndex) => (
                   <div className="row mb-3" key={rowIndex}>
@@ -112,13 +112,13 @@ const ProfilePage = () => {
                             <p><strong>Created At:</strong> {new Date(service.createdAt).toLocaleString()}</p>
                             <div className="mt-auto">
                               <button
-                                className="btn btn-danger w-100 h-100"
+                                className="btn btn-danger w-75 h-60 mb-2"
                                 onClick={() => handleDeleteService(service.serviceId)}
                               >
                                 Delete
                               </button>
                               <Link to={"/EditService/" + service.serviceId}>
-                              <button className='btn btn-warning'>Edit</button>
+                              <button className='btn btn-warning w-75 h-60 mb-2'>Edit</button>
                               </Link>
                             </div>
                           </div>
