@@ -5,6 +5,7 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
+  document.title = "Time Bank | Profile"
 
   // Fetch services on component mount
   useEffect(() => {
@@ -21,7 +22,7 @@ const ProfilePage = () => {
       return;
     }
 
-    fetch(`http://localhost:5293/api/Service/ServicesByUSERID/${userId}`)
+    fetch(`${process.env.REACT_APP_URL}/api/Service/ServicesByUSERID/${userId}`)
       .then((response) => {
         if (!response.ok) throw new Error("Failed to fetch services data");
         return response.json();
@@ -49,7 +50,7 @@ const ProfilePage = () => {
     if (!window.confirm("Are you sure you want to delete this service?")) return;
 
     // Send DELETE request to the API with serviceId and uId (token)
-    fetch(`http://localhost:5293/api/Service?serviceId=${serviceId}&uId=${token}`, {
+    fetch(`${process.env.REACT_APP_URL}/api/Service?serviceId=${serviceId}&uId=${token}`, {
       method: "DELETE",
     })
       .then((response) => {

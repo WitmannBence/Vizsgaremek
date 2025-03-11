@@ -4,6 +4,7 @@ import CryptoJS from 'crypto-js';
 
 const LoginPage = () => {
     const navigate = useNavigate();
+    document.title = "Time Bank | Login"
 
     const handleLogin = async () => {
         const username = document.getElementById("username").value;
@@ -11,7 +12,7 @@ const LoginPage = () => {
 
         try {
             // Step 1: Fetch salt from API
-            const saltResponse = await fetch(`http://localhost:5293/api/Login/GetSalt/${username}`, {
+            const saltResponse = await fetch(`${process.env.REACT_APP_URL}/api/Login/GetSalt/${username}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -28,7 +29,7 @@ const LoginPage = () => {
             console.log(tmpHash);
 
             // Step 3: Send the hashed password to the backend
-            const loginResponse = await fetch('http://localhost:5293/api/Login', {
+            const loginResponse = await fetch(`${process.env.REACT_APP_URL}/api/Login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

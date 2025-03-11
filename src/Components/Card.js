@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate from React Router
+import { Link } from "react-router-dom"; // Import useNavigate from React Router
 
 export default function Card({
   serviceName,
@@ -10,14 +10,9 @@ export default function Card({
   serviceId,
   ownerId
 }) {
-  const navigate = useNavigate(); // Hook for navigation
+
   const token = localStorage.getItem("token");
   const userID = localStorage.getItem("userID");
-
-  const handleViewDetails = () => {
-    // Redirect to ServiceDetailPage with the serviceId in the URL
-    navigate(`/ServiceDetails/${serviceId}`);
-  };
 
   
   /*const transactionPost = () => {
@@ -46,9 +41,12 @@ export default function Card({
       
 
         {/* Button to view details */}
-        <button className="btn btn-primary" onClick={handleViewDetails}>
-          Bővebben
-        </button>
+        <Link to={`/ServiceDetails/${serviceId}`}>
+          <div className="btn btn-primary">
+            Bővebben
+          </div>
+        </Link>
+
         <button className="btn btn-secondary ms-2" /*onClick={transactionPost()}*/ >
           Megveszem!
         </button>

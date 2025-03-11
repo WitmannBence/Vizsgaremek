@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState, useEffect } from "react";
 
 const CreateServicePage = () => {
@@ -10,13 +11,13 @@ const CreateServicePage = () => {
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  document.title = "Time Bank | Create Service"
 
   useEffect(() => {
     // Fetch categories
-    fetch("http://localhost:5293/api/Category/CategoryList")
-      .then((response) => response.json())
-      .then((data) => setCategories(data))
-      .catch((error) => console.error("Error fetching categories:", error));
+    axios.get(`${process.env.REACT_APP_URL}/api/Category/CategoryList`)
+      .then((response) => setCategories(response.data))
+      .catch((error) => console.error("Error fetching categories:", error.message));
   }, []);
 
   const handleChange = (e) => {
@@ -37,24 +38,24 @@ const CreateServicePage = () => {
     }
 
     // Post service data to the backend with the token in the URL
-    const response = await fetch(
-      `https://localhost:5243/api/Service?uId=${token}`, // Pass token as query parameter
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      }
-    );
+    try {
 
-    const result = await response.text();
-    if (response.ok) {
-      setSuccess(result);
+    const response = await axios.post(
+      `${process.env.REACT_APP_URL}/api/Service?uId=${token}`, formData);
+      console.log(response);
+
+    if (response.statusText === "OK") {
+      console.log(response);
+      setSuccess(response.data);
       setFormData({ serviceName: "", timeCost: "", description: "", categoryId: "" });
     } else {
-      setError(result);
+      setError(response.message);
+      console.log(response.message);
     }
+  } catch (error){
+      setError("Hiba a letöltés során");
+      console.error("Hiba a letöltés során", error);
+  }
   };
 
   return (

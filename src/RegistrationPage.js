@@ -12,6 +12,7 @@ const RegistrationPage = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
+  document.title = "Time Bank | Registration"
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -56,7 +57,7 @@ const RegistrationPage = () => {
         timeBalance: 0,
       };
 
-      const response = await fetch("http://localhost:5293/api/User/Registry", {
+      const response = await fetch(`${process.env.REACT_APP_URL}/api/User/Registry`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

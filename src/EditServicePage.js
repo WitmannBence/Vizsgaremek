@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -19,6 +20,7 @@ const EditServicePage = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  document.title = "Time Bank | Edit Service"
 
   useEffect(() => {
     if (!id) {
@@ -27,13 +29,12 @@ const EditServicePage = () => {
       return;
     }
 
-    fetch(`http://localhost:5293/api/Service/ServiceBySERVICEID/${id}`)
+    axios.get(`${process.env.REACT_APP_URL}/api/Service/ServiceBySERVICEID/${id}`)
       .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch service data");
-        return res.json();
+        if (res.statusText !== "OK") throw new Error("Failed to fetch service data");
       })
-      .then((data) => {
-        setService(data);
+      .then((res) => {
+        setService(res.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -44,9 +45,8 @@ const EditServicePage = () => {
   }, [id]);
 
   useEffect(() => {
-    fetch("http://localhost:5293/api/Category/CategoryList")
-      .then((response) => response.json())
-      .then((data) => setCategories(data))
+    axios.get(`${process.env.REACT_APP_URL}/api/Category/CategoryList`)
+      .then((res) => setCategories(res.data))
       .catch((error) => console.error("Error fetching categories:", error));
   }, []);
 
@@ -63,20 +63,11 @@ const EditServicePage = () => {
     }
 
     try {
-      const response = await fetch(
-        `http://localhost:5293/api/Service/${id}?uId=${token}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(service),
-        }
-      );
+      const response = await axios.put(
+        `${process.env.REACT_APP_URL}/api/Service/${id}?uId=${token}`, service);
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText || "Failed to update service");
+      if (response.statusText !== "OK") {
+        throw new Error(response.message || "Failed to update service");
       }
 
       navigate(`/services/${id}`);

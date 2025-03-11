@@ -12,27 +12,29 @@ function ServicesPage() {
   const [searchInput, setSearchInput] = useState("");
 
   const fetchServices = (categoryId = "", input = "") => {
-    let url = `${process.env.REACT_APP_PUBLIC_URL}/api/Service/AllService`;
+    let url = `${process.env.REACT_APP_URL}/api/Service/AllService`;
     
     if (categoryId && input) {
-      url = `${process.env.REACT_APP_PUBLIC_URL}/api/Service/SearchService?input=${input}&categoryId=${categoryId}`;
+      url = `${process.env.REACT_APP_URL}/api/Service/SearchService?input=${input}&categoryId=${categoryId}`;
     } else if (categoryId) {
-      url = `${process.env.REACT_APP_PUBLIC_URL}/api/Category/CategorySearch/${categoryId}`;
+      url = `${process.env.REACT_APP_URL}/api/Category/CategorySearch/${categoryId}`;
     } else if (input) {
-      url = `${process.env.REACT_APP_PUBLIC_URL}/api/Service/SearchService?input=${input}`;
+      url = `${process.env.REACT_APP_URL}/api/Service/SearchService?input=${input}`;
     }
     
     axios.get(url)
       .then((response) => {
         setData(response.data);
+        console.log(response.data)
       })
       .catch((error) => console.error("Error fetching services:", error));
   };
 
   const fetchCategories = () => {
-    axios.get(`${process.env.REACT_APP_PUBLIC_URL}/api/Category/CategoryList`)
+    axios.get(`${process.env.REACT_APP_URL}/api/Category/CategoryList`)
       .then((response) => {
         setCategories(response.data);
+        
       })
       .catch((error) => console.error("Error fetching categories:", error));
   };
@@ -52,6 +54,7 @@ function ServicesPage() {
   useEffect(() => {
     fetchServices();
     fetchCategories();
+    
 
     document.title = "Time Bank | Services"
   }, []);
@@ -75,13 +78,13 @@ function ServicesPage() {
         />
 
       <div className="servicespage mainBackground">
-      {data.map((service) => (
+      {data.map((service, categories) => (
         <Card
           key={service.serviceId}
           serviceId={service.serviceId} // Pass serviceId to Card
           serviceName={service.serviceName}
           timeCost={service.timeCost}
-          category={categories.categoryName}
+          category={categories.length === 0 ? categories[Number(service.categoryId)-1].categoryName : ""}
           createdAt={service.createdAt}
           ownerId={service.userId}
         />
