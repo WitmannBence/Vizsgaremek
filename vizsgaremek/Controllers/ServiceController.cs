@@ -81,7 +81,8 @@ namespace vizsgaremek.Controllers
                             FelhasznaloNev = context.Users
                                 .Where(user => user.UserId == service.UserId)
                                 .Select(user => user.FelhasznaloNev)
-                                .FirstOrDefault()
+                                .FirstOrDefault(),
+                            CategoryName = context.Categories.Where(cat=> cat.CategoryId == service.CategoryId).Select(cat=> cat.CategoryName).FirstOrDefault(),
                         })
                         .ToList();
 
@@ -141,11 +142,12 @@ namespace vizsgaremek.Controllers
                             FelhasznaloNev = context.Users
                                 .Where(user => user.UserId == service.UserId)
                                 .Select(user => user.FelhasznaloNev)
-                                .FirstOrDefault()
-                        })
-                        .ToList();
+                                .FirstOrDefault(),
+                            CategoryName = context.Categories.Where(cat => cat.CategoryId == service.CategoryId).Select(cat => cat.CategoryName).FirstOrDefault(),
+                        }).FirstOrDefault();
+                        
 
-                    if (keres == null || keres.Count == 0)
+                    if (keres == null)
                     {
                         return NotFound("Nem találtunk szolgáltatást");
                     }

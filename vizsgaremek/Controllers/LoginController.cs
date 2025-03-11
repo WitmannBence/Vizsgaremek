@@ -33,7 +33,7 @@ namespace vizsgaremek.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost] 
         public async Task<IActionResult> Login(LoginDTO loginDTO)
         {
             using (var context = new VizsgaremekContext())
@@ -54,6 +54,7 @@ namespace vizsgaremek.Controllers
                             Token = token,
                             FelhasznaloNev = response.FelhasznaloNev,
                             userID = response.UserId,
+                            TimeBalance = response.TimeBalance,
                             Jogosultsag = response.Jogosultsag,
                             TeljesNev = response.TeljesNev,
                             Email = response.Email,
