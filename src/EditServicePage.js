@@ -93,9 +93,10 @@ const EditServicePage = () => {
     <div className="form-card">
       <h2 className="mb-4">Edit Service</h2>
       <form onSubmit={handleSubmit}>
-        <label className="mb-3">
-          Service Name:
+        <label className="mb-3 ">
+        <i className="bi bi-vector-pen me-3"></i>
           <input
+            placeholder="Service Name"
             type="text"
             name="serviceName"
             value={service.serviceName}
@@ -104,9 +105,10 @@ const EditServicePage = () => {
           />
         </label>
         <br />
-        <label>
-          Time Cost:
+        <i class="bi bi-cash me-3"></i>
+        <label className="mb-3">
           <input
+            placeholder="Time Cost"
             type="number"
             name="timeCost"
             value={service.timeCost}
@@ -115,9 +117,10 @@ const EditServicePage = () => {
           />
         </label>
         <br />
-        <label>
-          Description:
-          <textarea
+        <i class="bi bi-clipboard2-fill me-3 "></i>
+        <label className="mb-3">
+          <textarea style={{width:"188px", verticalAlign: "middle"}}
+            placeholder="Description"
             name="description"
             value={service.description}
             onChange={handleChange}
@@ -126,7 +129,6 @@ const EditServicePage = () => {
         </label>
         <br />
         <label>
-          Category:
           <select
             name="categoryId"
             value={service.categoryId}
