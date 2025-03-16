@@ -8,6 +8,7 @@ export default function Card({
   category,
   createdAt,
   serviceId,
+  categoryName,
   ownerId
 }) {
 

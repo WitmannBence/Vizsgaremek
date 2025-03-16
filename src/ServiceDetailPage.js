@@ -54,7 +54,7 @@ function ServiceDetailPage() {
             <p className="service-description">{service.description ? service.description : "No description available"}</p>
             <div className="service-info">
               <p>
-                <strong>Category:</strong> {service.category ? service.category : "No category available"}
+                <strong>Category:</strong> {service.categoryName ? service.categoryName : "No category available"}
               </p>
               <p>
                 <strong>Time Cost:</strong> {service.timeCost ? service.timeCost : "N/A"}

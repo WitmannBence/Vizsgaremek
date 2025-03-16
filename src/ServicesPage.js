@@ -78,13 +78,13 @@ function ServicesPage() {
         />
 
       <div className="servicespage mainBackground">
-      {data.map((service, categories) => (
+      {data.map((service) => (
         <Card
           key={service.serviceId}
           serviceId={service.serviceId} // Pass serviceId to Card
           serviceName={service.serviceName}
           timeCost={service.timeCost}
-          category={categories.length === 0 ? categories[Number(service.categoryId)-1].categoryName : ""}
+          category={service.categoryName}
           createdAt={service.createdAt}
           ownerId={service.userId}
         />
