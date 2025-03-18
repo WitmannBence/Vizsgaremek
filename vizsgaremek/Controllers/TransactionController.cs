@@ -32,8 +32,9 @@ namespace vizsgaremek.Controllers
                         TransactionDate = DateTime.UtcNow,
                         TransactionCode = transactionCode
                     };
-
-                 var seller = await context.Users.FirstOrDefaultAsync(u => u.UserId == newTransaction.ReceiverId);
+                    await Program.SendEmail(context.Users.Where(u => u.UserId == newTransaction.ReceiverId).Select(u => u.Email).FirstOrDefault(), "Tranzakció", $"Megvették az egyik szolgáltatásodat!:");
+                    await Program.SendEmail(context.Users.Where(u => u.UserId == newTransaction.SenderId).Select(u => u.Email).FirstOrDefault(), "Tranzakció", $"Megvásároltál egy szolgáltatást!:");
+                    var seller = await context.Users.FirstOrDefaultAsync(u => u.UserId == newTransaction.ReceiverId);
                     if (seller != null)
                     {
                         context.Transactions.Add(newTransaction);
@@ -46,6 +47,7 @@ namespace vizsgaremek.Controllers
                     }
                     return NotFound("Hibás eladó");
                 }
+
                 catch (Exception ex)
                 {
                     return BadRequest(ex.Message);
