@@ -17,12 +17,16 @@ html {
         );
 }
 
+.mainBackground{
+  height: 100%;
+}
+
 .full-screen {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 100%;
   text-align: center;
   padding: 2rem;
   box-sizing: border-box;

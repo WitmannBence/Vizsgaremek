@@ -14,7 +14,7 @@ export default function Navbar() {
         localStorage.removeItem("username");
         localStorage.removeItem("userID");
         localStorage.removeItem("timeBalance")
-        navigate("/"); // Redirect to home after logout
+        window.location.href = "/"
     };
 
     return (

@@ -59,27 +59,18 @@ const ProfilePage = () => {
     fetch(`${process.env.REACT_APP_URL}/api/Service?serviceId=${serviceId}&uId=${token}`, {
       method: "DELETE",
     })
-      .then((response) => {
+    .then((response) => {
+      console.log(response.status);
+
         if (response.status === 401) {
           console.log("Token expired. Redirecting to login.");
           navigate("/"); // Redirect to login if token is expired
           return;
         }
         if (!response.ok) throw new Error("Failed to delete service");
-        return response.json();
-      })
-      .then(() => {
-        console.log(`Service ${serviceId} deleted successfully`);
 
-        // Wait for 0.5 seconds before refreshing the services list
-        setTimeout(() => {
-          // Update the state to reflect the service deletion
-          setServices((prevServices) =>
-            prevServices.filter((service) => service.serviceId !== serviceId)
-          );
-          // Fetch the updated list of services
-          fetchServices();
-        }, 1100); // Delay by 0.5 seconds
+        console.log(`Service ${serviceId} deleted successfully`);
+        fetchServices()
       })
       .catch((error) => console.error("Error deleting service:", error));
   };
