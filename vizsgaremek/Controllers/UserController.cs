@@ -111,7 +111,7 @@ namespace vizsgaremek.Controllers
                 }
             }
         }
-        [HttpGet("userbyuserid")]
+        [HttpGet("userbyuserid/{id}")]
         public IActionResult GetUserbyUserId(int keres, string uId)
         {
             using (var context = new VizsgaremekContext())
@@ -119,7 +119,7 @@ namespace vizsgaremek.Controllers
                 try
                 {
                     
-                        if (!Program.LoggedInUsers.ContainsKey(uId))
+                     if (!Program.LoggedInUsers.ContainsKey(uId))
                         {
                             return Unauthorized("Nem vagy bejelentkezve");
                         }
