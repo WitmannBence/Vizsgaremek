@@ -95,6 +95,7 @@ namespace vizsgaremek.Controllers
             {
                 try
                 {
+
                     var felhasznalo = context.Users.FirstOrDefault(u => u.FelhasznaloNev == keres);
                     if (keres == null)
                     {
@@ -111,13 +112,18 @@ namespace vizsgaremek.Controllers
             }
         }
         [HttpGet("userbyuserid")]
-        public IActionResult GetUserbyUserId(int keres)
+        public IActionResult GetUserbyUserId(int keres, string uId)
         {
             using (var context = new VizsgaremekContext())
             {
                 try
                 {
-                    var felhasznalo = context.Users.FirstOrDefault(u => u.UserId == keres);
+                    
+                        if (!Program.LoggedInUsers.ContainsKey(uId))
+                        {
+                            return Unauthorized("Nem vagy bejelentkezve");
+                        }
+                        var felhasznalo = context.Users.FirstOrDefault(u => u.UserId == keres);
                     if (keres == null)
                     {
                         return NotFound("Nincs ilyen felhasználó");
