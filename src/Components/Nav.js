@@ -18,8 +18,8 @@ export default function Navbar() {
     };
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light ">
-            <img className="ms-4" src={`${process.env.PUBLIC_URL}/favicon.ico`} alt="Logo" style={{ width: '30px', height: '30px'}}/>
+        <nav className="navbar navbar-expand-lg navbar-light">
+            <img className="ms-4" src={`${process.env.PUBLIC_URL}/favicon.ico`} draggable="false" alt="Logo" style={{ width: '30px', height: '30px'}}/>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
@@ -28,7 +28,7 @@ export default function Navbar() {
                 <ul className="navbar-nav mr-auto">
                     <li className="nav-item ms-4">
                         <Link to={"/"} className="nav-link">
-                            <strong className='fs-4'>Home</strong> <span className="sr-only"></span>
+                            <strong className='fs-4'>Főoldal</strong> <span className="sr-only"></span>
                         </Link>                        
                     </li>
                 </ul>
@@ -47,7 +47,7 @@ export default function Navbar() {
                     {token && ( // Only render if token exists
                         <li className="nav-item ms-4">
                             <Link to="/CreateService" className="nav-link">
-                              <strong className="fs-4">Create Service</strong>
+                              <strong className="fs-4">Szolgáltatás létrehozása</strong>
                             </Link>
                         </li>
                      )}
@@ -62,7 +62,7 @@ export default function Navbar() {
                             <Link to="/Profile">
                             <i className="bi bi-person-circle" style={{ fontSize: "1.5rem", marginRight: "8px", }}></i>
                             </Link>
-                            <a className="nav-link">Egyenleged:  {timeBalance} coin</a>
+                            <a className="nav-link">Egyenleged:  {timeBalance} <i className="bi bi-coin"></i></a>
                             
                         </li>
                     )}
@@ -70,7 +70,7 @@ export default function Navbar() {
                     {/* Conditional rendering for the logout button */}
                     {token && (
                         <li className="nav-item me-4">
-                            <button className="btn btn-danger text-white" onClick={handleLogout}>Logout</button>
+                            <button className="btn btn-danger text-white" onClick={handleLogout}>Kijelentkezés</button>
                         </li>
                     )}
                 </ul>

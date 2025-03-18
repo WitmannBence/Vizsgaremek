@@ -5,6 +5,12 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    navigate("/")
+  }
+
   document.title = "Time Bank | Profile"
 
   // Fetch services on component mount
@@ -89,7 +95,7 @@ const ProfilePage = () => {
 
   return (
     <div className="profile-page container">
-      <h1 className="profile-title mt-5" style={{textAlign: 'center'}}>User Profile</h1>
+      <h1 className="profile-title mt-5" style={{textAlign: 'center'}}>Fiókod</h1>
 
       {loading ? (
         <div className="loading">Loading user data...</div>
@@ -99,27 +105,28 @@ const ProfilePage = () => {
             <p>No active services found for this user.</p>
           ) : (
             <div>
-              <h3 className='mt-2 mb-5' style={{textAlign: 'center'}}>Your Active Services:</h3>
+              <h3 className='mt-2 mb-5' style={{textAlign: 'center'}}>Az aktív szolgáltatásaid:</h3>
               <div className="services-list">
                 {chunkArray(services, 3).map((serviceRow, rowIndex) => (
                   <div className="row mb-3" key={rowIndex}>
                     {serviceRow.map((service) => (
-                      <div className="col-md-4 d-flex" key={service.serviceId}>
+                      <div className="cardContainer col-md-4 d-flex" key={service.serviceId}>
                         <div className="card h-100 w-100 shadow">
-                          <div className="card-body d-flex flex-column">
+                          <div className="card-body d-flex flex-column" style={{alignItems: 'center'}}>
+                          <img className="card-img-top rounded image-shadow-s mb-4" src={`https://picsum.photos/id/${Math.round(Math.random()*20)+1}/720`} style={{ height:"128px", width:"128px"}} alt="Service Image" />
                             <h4 className="service-name">{service.serviceName}</h4>
-                            <p><strong>Time Cost:</strong> {service.timeCost} hours</p>
-                            <p><strong>Description:</strong> {service.description}</p>
-                            <p><strong>Created At:</strong> {new Date(service.createdAt).toLocaleString()}</p>
+                            <p><strong>Ára:</strong> {service.timeCost} <i className="bi bi-coin"></i></p>
+                            <p><strong>Leírás:</strong> {service.description}</p>
+                            <p><strong>Feltöltés ideje:</strong> {new Date(service.createdAt).toLocaleString()}</p>
                             <div className="mt-auto">
                               <button
                                 className="btn btn-danger w-75 h-60 mb-2"
                                 onClick={() => handleDeleteService(service.serviceId)}
                               >
-                                Delete
+                                Törlés
                               </button>
                               <Link to={"/EditService/" + service.serviceId}>
-                              <button className='btn btn-warning w-75 h-60 mb-2'>Edit</button>
+                              <button className='btn btn-warning w-75 h-60 mb-2'>Szerkesztés</button>
                               </Link>
                             </div>
                           </div>

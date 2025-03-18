@@ -44,13 +44,13 @@ export default function Card({
   });
 
   return (
-    <div className="card shadow-sm border-0" style={{ width: "100%", maxWidth: "800px", margin: "0 auto" }}>
-      <img className="card-img-top rounded-top" src={`https://picsum.photos/id/${Math.round(Math.random()*20)+1}/200`} alt="Card image cap" />
+    <div className="card shadow-sm border-0" style={{ width: "100%", maxWidth: "600px", margin: "0 auto" }}>
+      <img className="card-img-top rounded-top image-shadow-s mt-1 mb-2" src={`https://picsum.photos/id/${Math.round(Math.random()*20)+1}/1920`} alt="Card image cap" />
       <div className="card-body">
-        <h5 className="card-title">{serviceName}</h5>
-        <p><strong>Category:</strong> {category}</p>
-        <p><strong>Time Cost:</strong> {timeCost}</p>
-        <p><strong>Created At:</strong> {formattedDate}</p>
+        <h3 className="card-title">{serviceName}</h3>
+        <p><strong>Kategória:</strong> {category}</p>
+        <p><strong>Ára</strong> {timeCost} <i className="bi bi-coin"></i></p>
+        <p><strong>Feltöltés ideje:</strong> {formattedDate}</p>
 
         <Link to={`/ServiceDetails/${serviceId}`}>
           <div className="btn btn-primary">

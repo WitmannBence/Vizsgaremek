@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CreateServicePage = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,13 @@ const CreateServicePage = () => {
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const navigate = useNavigate();
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    navigate("/")
+  }
+
   document.title = "Time Bank | Create Service"
 
   useEffect(() => {
@@ -61,7 +69,7 @@ const CreateServicePage = () => {
   return (
     <section className="form-card">
       <h2 className="mb-4">Szolgáltatás Létrehozása</h2>
-      <form onSubmit={handleSubmit}>
+      <form  onSubmit={handleSubmit}>
       <i className="bi bi-megaphone me-3"></i>
         <input className="mb-2"
           type="text"
@@ -91,7 +99,7 @@ const CreateServicePage = () => {
           required
         ></textarea>
         <br />
-        <select className="mb-2 ms-4" name="categoryId" value={formData.categoryId} onChange={handleChange} required>
+        <select className="mb-2 ms-4 selectInput" name="categoryId" value={formData.categoryId} onChange={handleChange} required>
           <option value="">Válassz kategóriát</option>
           {categories.map((category) => (
             <option key={category.categoryId} value={category.categoryId}>

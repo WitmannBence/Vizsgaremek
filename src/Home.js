@@ -10,34 +10,34 @@ document.title = "Time Bank"
 
     return (
 
-        <div className="mainBackground">
+        <div className="mainBackground" style={{}}>
                 <div className="hero full-screen">
-                    <h1><img src={`${process.env.PUBLIC_URL}/favicon.ico`} alt="Logo" style={{ width: '190px', height: '190px',  margin: '10px !important'}}/></h1>
+                    <h1><img src={`${process.env.PUBLIC_URL}/favicon.ico`} draggable="false" alt="Logo" style={{ width: '150px', height: '150px',  margin: '10px !important'}}/></h1>
                     <h2><strong>Üdvözlünk a Time Bank weboldalán!</strong></h2>
-                    <div className="feature-cards">
+                    <div className="feature-cards ">
                         <div className="card">
                             <span>🌐</span>
-                            <h3>Kérj segítséget!</h3>
+                            <h4>Kérj segítséget!</h4>
                             <p>Böngéssz felhasználóink által közre tett szolgáltatások közül!</p>
                         </div>
                         <div className="card">
                             <span>⭐</span>
-                            <h3>Válaszd ki érdeklődéseidet!</h3>
+                            <h4>Válaszd ki érdeklődéseidet!</h4>
                             <p>Választhatsz érdeklődési körökből, hogy könnyebben megtaláld amit szeretnél.</p>
                         </div>
                         <div className="card">
                             <span>🔁</span>
-                            <h3>Szerezz pontokat!</h3>
+                            <h4>Szerezz pontokat!</h4>
                             <p>Minden felhasználó segíthet másoknak, hogy ingyen hozzáférhessenek.</p>
                         </div>
                     </div>
                     {!token ? ( // Show login/register buttons if token does NOT exist
   <>
     <Link to="/LoginPage">
-      <button className="cta-button">Bejelentkezés</button>
+      <button className="cta-button mb-3" style={{width:"150px"}}>Bejelentkezés</button>
     </Link>
     <Link to="/RegistrationPage">
-      <button className="cta-button">Regisztrálok</button>
+      <button className="cta-button mt-1 mb-5"style={{width:"150px"}}>Regisztrálok </button>
     </Link>
   </>
 ) : ( // Show new button if token EXISTS

@@ -1,11 +1,18 @@
 import { useState, useEffect } from "react"
 import { useParams, Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 function ServiceDetailPage() {
   const { id } = useParams()
   const [service, setService] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const navigate = useNavigate();
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    navigate("/")
+  }
 
   useEffect(() => {
     if (!id) {
@@ -46,27 +53,27 @@ function ServiceDetailPage() {
 
   return (
     <div className="full-screen">
-      <div className="service-detail-container">
-        <div className="service-detail-card">
-          <img className="service-image" src="/placeholder.svg?height=300&width=500" alt="Service Image" />
-          <div className="service-content">
-            <h1 className="service-title">{service.serviceName ? service.serviceName : "Service Name"}</h1>
-            <p className="service-description">{service.description ? service.description : "No description available"}</p>
+      <div className="service-detail-container ">
+        
+            <h1 className="mt-5">{service.serviceName ? service.serviceName : "Service Name"}</h1>
+          <div className="service-detail-card mt-5 " style={{alignItems:"center"}}>
+          <img className="card-img-top rounded image-shadow" src={`https://picsum.photos/id/${Math.round(Math.random()*20)+1}/2000`} style={{height:"400px", width:"400px"}} alt="Service Image" />
+          <div className="service-content mt-5">  <p className="service-description">{service.description ? service.description : "No description available"}</p>
             <div className="service-info">
               <p>
-                <strong>Category:</strong> {service.categoryName ? service.categoryName : "No category available"}
+                <strong>Kategóriák:</strong> {service.categoryName ? service.categoryName : "No category available"}
               </p>
               <p>
-                <strong>Time Cost:</strong> {service.timeCost ? service.timeCost : "N/A"}
+                <strong>Ára:</strong> {service.timeCost ? service.timeCost : "N/A"} <i className="bi bi-coin"></i>
               </p>
               <p>
-                <strong>Created At:</strong> {service.createdAt ? new Date(service.createdAt).toLocaleString() : "N/A"}
+                <strong>Feltöltés ideje:</strong> {service.createdAt ? new Date(service.createdAt).toLocaleString(): "N/A"}
               </p>
             </div>
           </div>
         </div>
         <Link to="/services" className="cta-button">
-          Back to Services
+          Vissza a szolgáltatásokhoz
         </Link>
       </div>
     </div>

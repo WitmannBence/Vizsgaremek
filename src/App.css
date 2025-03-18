@@ -1,12 +1,13 @@
 body,
 html {
+  
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
   font-family: "Arial", sans-serif;
-  user-select: none; /* Prevents text selection */
+  user-select: none;  /* Prevents text selection */
   outline: none;     /* Removes the outline around the element */
   cursor: default;   /* Optionally, sets the cursor to default */
   background: linear-gradient(
@@ -42,7 +43,14 @@ html {
   gap: 1.5rem;
   margin: 1rem 0;
   max-width: 1200px;
+  height: 250px;
   width: 100%;
+}
+
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .card {
@@ -287,7 +295,7 @@ nav{
   margin-bottom: 20px;
 }
 
-.search-container input {
+.search-container input, select {
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -302,4 +310,12 @@ nav{
   font-size: 16px;
   background-color: white;
   cursor: pointer;
+}
+
+.image-shadow{
+  box-shadow: 5px 10px 50px rgb(73, 72, 72); 
+}
+
+.image-shadow-s{
+  box-shadow: 3px 3px 15px rgb(73, 72, 72); 
 }

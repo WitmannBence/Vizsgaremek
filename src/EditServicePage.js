@@ -7,6 +7,10 @@ const EditServicePage = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
+  if (!token) {
+    navigate("/")
+  }
+
   const [service, setService] = useState({
     serviceId: id,
     userId: "",
@@ -31,9 +35,10 @@ const EditServicePage = () => {
 
     axios.get(`${process.env.REACT_APP_URL}/api/Service/ServiceBySERVICEID/${id}`)
       .then((res) => {
+        console.log(res.statusText);
         if (res.statusText !== "OK") throw new Error("Failed to fetch service data");
-      })
-      .then((res) => {
+
+        console.log(res);
         setService(res.data);
         setLoading(false);
       })
@@ -42,7 +47,7 @@ const EditServicePage = () => {
         setError(err.message);
         setLoading(false);
       });
-  }, [id]);
+  }, [id]); 
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_URL}/api/Category/CategoryList`)
@@ -82,7 +87,7 @@ const EditServicePage = () => {
 
   return (
     <div className="form-card">
-      <h2 className="mb-4">Edit Service</h2>
+      <h2 className="mb-4">Szolgáltatás szerkesztése</h2>
       <form onSubmit={handleSubmit}>
         <label className="mb-3 ">
         <i className="bi bi-vector-pen me-3"></i>
@@ -96,7 +101,7 @@ const EditServicePage = () => {
           />
         </label>
         <br />
-        <i class="bi bi-cash me-3"></i>
+        <i className="bi bi-cash me-3"></i>
         <label className="mb-3">
           <input
             placeholder="Time Cost"
@@ -108,7 +113,7 @@ const EditServicePage = () => {
           />
         </label>
         <br />
-        <i class="bi bi-clipboard2-fill me-3 "></i>
+        <i className="bi bi-clipboard2-fill me-3 "></i>
         <label className="mb-3">
           <textarea style={{width:"188px", verticalAlign: "middle"}}
             placeholder="Description"
@@ -119,14 +124,14 @@ const EditServicePage = () => {
           />
         </label>
         <br />
-        <label>
+        <label className="ms-4">
           <select
             name="categoryId"
             value={service.categoryId}
             onChange={handleChange}
             required
           >
-            <option value="">Select a category</option>
+            <option value="">Kategóriák</option>
             {categories.map((category) => (
               <option key={category.categoryId} value={category.categoryId}>
                 {category.categoryName}
@@ -136,7 +141,7 @@ const EditServicePage = () => {
         </label>
         <br />
         <button type="submit" className="cta-button">
-          Save Changes
+          Változtatások mentése
         </button>
       </form>
     </div>

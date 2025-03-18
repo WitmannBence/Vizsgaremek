@@ -3,6 +3,8 @@ import "./App.css";
 import Card from "./Components/Card";
 import axios from "axios";
 import { Dropdown } from "bootstrap";
+import { useNavigate } from "react-router-dom";
+
 
 function ServicesPage() {
   const [data, setData] = useState([]);
@@ -11,6 +13,12 @@ function ServicesPage() {
   const [searchInput, setSearchInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [noResults, setNoResults] = useState(false);
+  const navigate = useNavigate();
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    navigate("/")
+  }
 
   let base_url = process.env.REACT_APP_URL;
 
@@ -72,7 +80,7 @@ function ServicesPage() {
           value={selectedCategory}
           onChange={handleCategoryChange}
         >
-          <option value="">All Categories</option>
+          <option value="">Kategóriák</option>
           {categories.map((category) => (
             <option key={category.categoryId} value={category.categoryId}>
               {category.categoryName}
@@ -81,7 +89,7 @@ function ServicesPage() {
         </select>
         <input
           type="text"
-          placeholder="Search services..."
+          placeholder="Keresés..."
           value={searchInput}
           onChange={handleSearchChange}
         />
