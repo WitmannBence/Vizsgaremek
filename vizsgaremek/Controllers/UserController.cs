@@ -111,7 +111,7 @@ namespace vizsgaremek.Controllers
                 }
             }
         }
-        [HttpGet("userbyuserid/{id}")]
+        [HttpGet("userbyuserid/{keres}")]
         public IActionResult GetUserbyUserId(int keres, string uId)
         {
             using (var context = new VizsgaremekContext())
