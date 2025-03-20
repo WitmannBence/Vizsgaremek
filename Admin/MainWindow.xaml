@@ -1,0 +1,23 @@
+﻿<Window x:Class="Admin.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Admin"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="6*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Button x:Name="btnMegjelenit" Content="Szolgáltatások" Width="80" Height="30" Margin="10" Click="btnMegjelenit_Click"/>
+            <Button x:Name="btnTorol" Content="Törlés" Width="75" Height="30" Margin="10" Click="btnTorol_Click"/>
+            <Button x:Name="btnFelhasznalok" Content="Felhasználók megjelenítése" Width="75" Height="30" Margin="10" Click="btnFelhasznalok_Click"/>
+            <Button x:Name="btnJogosultsag" Content="Jogosultság" Width="75" Height="30" Margin="10"/>
+            
+        </StackPanel>
+        <DataGrid Grid.Row="1" x:Name="dtgAdatok"></DataGrid>
+    </Grid>
+</Window>
