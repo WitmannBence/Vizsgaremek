@@ -12,4 +12,8 @@ public partial class Privilege
     public string Description { get; set; } = null!;
 
     public int Szint { get; set; }
+    public override string ToString()
+    {
+        return $"{Nev} - {Szint}"; 
+    }
 }

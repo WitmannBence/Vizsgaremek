@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Admin"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+        Title="AdminPanel" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -15,8 +15,8 @@
             <Button x:Name="btnMegjelenit" Content="Szolgáltatások" Width="80" Height="30" Margin="10" Click="btnMegjelenit_Click"/>
             <Button x:Name="btnTorol" Content="Törlés" Width="75" Height="30" Margin="10" Click="btnTorol_Click"/>
             <Button x:Name="btnFelhasznalok" Content="Felhasználók megjelenítése" Width="75" Height="30" Margin="10" Click="btnFelhasznalok_Click"/>
-            <Button x:Name="btnJogosultsag" Content="Jogosultság" Width="75" Height="30" Margin="10"/>
-            
+            <Button x:Name="btnJogosultsag" Content="Jogosultság" Width="75" Height="30" Margin="10" Click="btnJogosultsag_Click"/>
+            <ComboBox x:Name="cbJogosultsagok" Width="125" Height="30" Margin="10" SelectionChanged="cbJogosultsagok_SelectionChanged"/>
         </StackPanel>
         <DataGrid Grid.Row="1" x:Name="dtgAdatok"></DataGrid>
     </Grid>

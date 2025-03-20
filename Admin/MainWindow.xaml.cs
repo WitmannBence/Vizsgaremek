@@ -23,7 +23,19 @@ namespace Admin
         public MainWindow()
         {
             InitializeComponent();
-            
+            using (var context = new VizsgaremekContext())
+            {
+                var jogosultsagok = context.Privileges
+                    .Select(j => new Privilege { Nev = j.Nev, Szint = j.Szint })
+                    .ToList();
+
+               
+                foreach (var jogosultsag in jogosultsagok)
+                {
+                    cbJogosultsagok.Items.Add(jogosultsag);
+                }
+            }
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -117,6 +129,39 @@ namespace Admin
                 {
                     MessageBox.Show(ex.Message);
                 }
+            }
+        }
+
+        private void cbJogosultsagok_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private async void  btnJogosultsag_Click(object sender, RoutedEventArgs e)
+        {
+            using (var context = new VizsgaremekContext()) 
+            {
+                var kivalasztott = dtgAdatok.SelectedItem as User;
+                if (kivalasztott == null) 
+                {
+                    MessageBox.Show("Válassz ki egy felhasználót!");
+                    return;
+                }
+                var kivalasztottSzint = cbJogosultsagok.SelectedItem as Privilege;
+                if (kivalasztottSzint == null)
+                {
+                    MessageBox.Show("Válassz ki egy jogosultsági szintet!");
+                    return;
+                }
+
+               
+                kivalasztott.Jogosultsag = kivalasztottSzint.Szint;
+                context.Users.Update(kivalasztott);
+                
+                await context.SaveChangesAsync();
+
+                
+                MessageBox.Show("A felhasználó jogosultsága frissítve lett.");
             }
         }
     }
