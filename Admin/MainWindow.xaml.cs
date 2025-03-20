@@ -45,20 +45,29 @@ namespace Admin
             using (var context = new VizsgaremekContext())
             {
                 var services = context.Services
-                    .Include(service => service.Category) 
-                    .Include(service => service.UserServices) 
+        
                     .Select(service => new
                     {
                         Service = service,  
+                        service.ServiceId,
+                        service.UserId,
+                        service.ServiceName,
+                        service.TimeCost,
+                        service.Description,
+                        service.CreatedAt,
+                        service.CategoryId,
                         FelhasznaloNev = context.Users
-                            .Where(user => user.UserId == service.UserId)
-                            .Select(user => user.FelhasznaloNev)
-                            .FirstOrDefault(),
-                        CategoryName = service.Category != null ? service.Category.CategoryName : null,  
+                    .Where(user => user.UserId == service.UserId)
+                    .Select(user => user.FelhasznaloNev)
+                    .FirstOrDefault(),
+                        CategoryName = context.Categories
+                    .Where(cat => cat.CategoryId == service.CategoryId)
+                    .Select(cat => cat.CategoryName)
+                    .FirstOrDefault(),
                     })
-                    .ToList();
+            .ToList();
 
-             
+
                 dtgAdatok.ItemsSource = services;
             }
         }
