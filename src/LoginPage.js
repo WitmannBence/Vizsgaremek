@@ -51,6 +51,7 @@ const LoginPage = () => {
                 console.log(localStorage.getItem("timeBalance"));
                 alert('Login successful!');
                 console.log('Logged-in user:', loggedInUser);
+               
 
 
                 // Redirect to home or dashboard
