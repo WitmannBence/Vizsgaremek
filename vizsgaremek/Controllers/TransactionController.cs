@@ -39,8 +39,11 @@ namespace vizsgaremek.Controllers
                     {
                         context.Transactions.Add(newTransaction);
                         await context.SaveChangesAsync();
-                        await Program.SendEmail(context.Users.Where(u => u.UserId == newTransaction.ReceiverId).Select(u => u.Email).FirstOrDefault(), "Tranzakció", $"Megvették az egyik szolgáltatásodat!:");
-                        await Program.SendEmail(context.Users.Where(u => u.UserId == newTransaction.SenderId).Select(u => u.Email).FirstOrDefault(), "Tranzakció", $"Megvásároltál egy szolgáltatást!:");
+                        await Program.SendEmail(context.Users.Where(u => u.UserId == newTransaction.ReceiverId).Select(u => u.Email).FirstOrDefault(), "Tranzakció", $"Megvették a(z) {context.Services
+                                            .Where(s => s.ServiceId == newTransaction.UserServiceId)
+                                            .Select(s => s.ServiceName)
+                                            .FirstOrDefault()} szolgáltatásodat!:");
+                        await Program.SendEmail(context.Users.Where(u => u.UserId == newTransaction.SenderId).Select(u => u.Email).FirstOrDefault(), "Tranzakció", $"Megvásároltád a(z) szolgáltatást!:");
                         return Ok(new
                         {
                             SellerEmail = seller.Email,
