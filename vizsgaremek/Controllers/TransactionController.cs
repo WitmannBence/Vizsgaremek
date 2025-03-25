@@ -10,6 +10,7 @@ namespace vizsgaremek.Controllers
     public class TransactionController : ControllerBase
     {
         [HttpPost("purchase")]
+        
         public async Task<IActionResult> PurchaseService(Transaction transaction, string uId)
         {
             using (var context = new VizsgaremekContext())
@@ -19,7 +20,7 @@ namespace vizsgaremek.Controllers
                     if (!Program.LoggedInUsers.ContainsKey(uId))
                     {
                         return Unauthorized("Nem vagy bejelentkezve");
-                    }        
+                    }
                     string transactionCode = GenerateTransactionCode();
 
                     var newTransaction = new Transaction
@@ -32,13 +33,14 @@ namespace vizsgaremek.Controllers
                         TransactionDate = DateTime.UtcNow,
                         TransactionCode = transactionCode
                     };
-                    await Program.SendEmail(context.Users.Where(u => u.UserId == newTransaction.ReceiverId).Select(u => u.Email).FirstOrDefault(), "Tranzakció", $"Megvették az egyik szolgáltatásodat!:");
-                    await Program.SendEmail(context.Users.Where(u => u.UserId == newTransaction.SenderId).Select(u => u.Email).FirstOrDefault(), "Tranzakció", $"Megvásároltál egy szolgáltatást!:");
+                    
                     var seller = await context.Users.FirstOrDefaultAsync(u => u.UserId == newTransaction.ReceiverId);
                     if (seller != null)
                     {
                         context.Transactions.Add(newTransaction);
                         await context.SaveChangesAsync();
+                        await Program.SendEmail(context.Users.Where(u => u.UserId == newTransaction.ReceiverId).Select(u => u.Email).FirstOrDefault(), "Tranzakció", $"Megvették az egyik szolgáltatásodat!:");
+                        await Program.SendEmail(context.Users.Where(u => u.UserId == newTransaction.SenderId).Select(u => u.Email).FirstOrDefault(), "Tranzakció", $"Megvásároltál egy szolgáltatást!:");
                         return Ok(new
                         {
                             SellerEmail = seller.Email,
@@ -54,6 +56,8 @@ namespace vizsgaremek.Controllers
                 }
             }
         }
+
+
 
         [HttpGet("transaction-history/{userId}")]
         public async Task<IActionResult> GetTransactionHistory(int userId)

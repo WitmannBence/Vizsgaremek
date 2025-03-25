@@ -147,10 +147,6 @@ public partial class VizsgaremekContext : DbContext
             entity.HasOne(d => d.Sender).WithMany(p => p.Transactions)
                 .HasForeignKey(d => d.SenderId)
                 .HasConstraintName("transactions_ibfk_1");
-
-            entity.HasOne(d => d.UserService).WithMany(p => p.Transactions)
-                .HasForeignKey(d => d.UserServiceId)
-                .HasConstraintName("transactions_ibfk_2");
         });
 
         modelBuilder.Entity<User>(entity =>
@@ -194,11 +190,9 @@ public partial class VizsgaremekContext : DbContext
 
             entity.ToTable("user_services");
 
-            entity.HasIndex(e => e.ServiceId, "ServiceID");
+            entity.HasIndex(e => e.ServiceId, "ServiceID").IsUnique();
 
-            entity.HasIndex(e => e.UserId, "UserID_2");
-
-            entity.HasIndex(e => new { e.UserId, e.ServiceId }, "UserId");
+            entity.HasIndex(e => new { e.UserId, e.ServiceId }, "UserID");
 
             entity.Property(e => e.Id)
                 .HasColumnType("int(11)")
@@ -210,13 +204,13 @@ public partial class VizsgaremekContext : DbContext
                 .HasColumnType("int(11)")
                 .HasColumnName("UserID");
 
-            entity.HasOne(d => d.Service).WithMany(p => p.UserServices)
-                .HasForeignKey(d => d.ServiceId)
-                .HasConstraintName("user_services_ibfk_2");
+            entity.HasOne(d => d.Service).WithOne(p => p.UserService)
+                .HasForeignKey<UserService>(d => d.ServiceId)
+                .HasConstraintName("user_services_ibfk_1");
 
             entity.HasOne(d => d.User).WithMany(p => p.UserServices)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("user_services_ibfk_1");
+                .HasConstraintName("user_services_ibfk_2");
         });
 
         OnModelCreatingPartial(modelBuilder);

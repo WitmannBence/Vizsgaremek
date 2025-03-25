@@ -13,7 +13,7 @@ public partial class Transaction
 
     public int UserServiceId { get; set; }
 
-    public decimal? TimeAmount { get; set; }
+    public decimal TimeAmount { get; set; }
 
     public string? Description { get; set; }
 
@@ -22,6 +22,4 @@ public partial class Transaction
     public string TransactionCode { get; set; } = null!;
 
     public virtual User? Sender { get; set; } = null!;
-
-    public virtual UserService? UserService { get; set; } = null!;
 }

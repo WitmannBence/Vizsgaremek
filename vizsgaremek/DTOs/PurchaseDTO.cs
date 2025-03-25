@@ -7,7 +7,8 @@ namespace vizsgaremek.DTOs
     [ApiController]
     public class PurchaseDTO : ControllerBase
     {
-        public int BuyerId { get; set; }  
-        public int ServiceId { get; set; } 
+        public int SenderId { get; set; }
+        public int ServiceId { get; set; }  
+        public decimal TimeAmount { get; set; }
     }
 }
