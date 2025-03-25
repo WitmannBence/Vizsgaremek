@@ -27,7 +27,7 @@ namespace Admin
                     .Select(j => new Privilege { Nev = j.Nev, Szint = j.Szint })
                     .ToList();
 
-               
+
                 foreach (var jogosultsag in jogosultsagok)
                 {
                     cbJogosultsagok.Items.Add(jogosultsag);
@@ -38,12 +38,12 @@ namespace Admin
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void btnFelhasznalok_Click(object sender, RoutedEventArgs e)
         {
-            using (var context = new VizsgaremekContext()) 
+            using (var context = new VizsgaremekContext())
             {
                 var users = context.Users.ToList();
                 dtgAdatok.ItemsSource = users;
@@ -55,10 +55,10 @@ namespace Admin
             using (var context = new VizsgaremekContext())
             {
                 var services = context.Services
-        
+
                     .Select(service => new
                     {
-                        Service = service,  
+                        Service = service,
                         service.ServiceId,
                         service.UserId,
                         service.ServiceName,
@@ -86,8 +86,8 @@ namespace Admin
 
         private async void btnTorol_Click(object sender, RoutedEventArgs e)
         {
-            
-            var selectedService = dtgAdatok.SelectedItem as dynamic;  
+
+            var selectedService = dtgAdatok.SelectedItem as dynamic;
 
             if (selectedService == null)
             {
@@ -120,8 +120,8 @@ namespace Admin
                     await context.SaveChangesAsync();
                     MessageBox.Show("Sikeres törlés");
 
-                    
-                    btnMegjelenit_Click(null, null);  
+
+                    btnMegjelenit_Click(null, null);
                 }
                 catch (Exception ex)
                 {
@@ -135,12 +135,12 @@ namespace Admin
 
         }
 
-        private async void  btnJogosultsag_Click(object sender, RoutedEventArgs e)
+        private async void btnJogosultsag_Click(object sender, RoutedEventArgs e)
         {
-            using (var context = new VizsgaremekContext()) 
+            using (var context = new VizsgaremekContext())
             {
                 var kivalasztott = dtgAdatok.SelectedItem as User;
-                if (kivalasztott == null) 
+                if (kivalasztott == null)
                 {
                     MessageBox.Show("Válassz ki egy felhasználót!");
                     return;
@@ -152,15 +152,34 @@ namespace Admin
                     return;
                 }
 
-               
+
                 kivalasztott.Jogosultsag = kivalasztottSzint.Szint;
                 context.Users.Update(kivalasztott);
-                
+
                 await context.SaveChangesAsync();
 
-                
+
                 MessageBox.Show("A felhasználó jogosultsága frissítve lett.");
             }
         }
+
+        private async void btnEgyenleg_Click(object sender, RoutedEventArgs e)
+        {
+            using (var context = new VizsgaremekContext())
+            {
+                var kivalasztott = dtgAdatok.SelectedItem as User;
+                if (kivalasztott == null)
+                {
+                    MessageBox.Show("Válassz ki egy felhasználót!");
+                    return;
+                }
+                decimal balance = int.Parse(tbEgyenleg.Text);
+                kivalasztott.TimeBalance += balance;
+                context.Users.Update(kivalasztott);
+                await context.SaveChangesAsync();
+                MessageBox.Show("Hozzáadtad az egyenleget!");
+                btnFelhasznalok_Click(null, null);
+            }
+        }
     }
-    }
+}
