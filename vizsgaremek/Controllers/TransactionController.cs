@@ -33,21 +33,38 @@ namespace vizsgaremek.Controllers
                         TransactionDate = DateTime.UtcNow,
                         TransactionCode = transactionCode
                     };
-                    
+                    var timeCost = await context.Services.Where(s => s.ServiceId == newTransaction.UserServiceId).Select(c => c.TimeCost).FirstOrDefaultAsync();
                     var seller = await context.Users.FirstOrDefaultAsync(u => u.UserId == newTransaction.ReceiverId);
+                    var buyer = await context.Users.FirstOrDefaultAsync(u => u.UserId == newTransaction.SenderId);
+                    newTransaction.TimeAmount = timeCost;
+                    if (buyer == seller)
+                    {
+                        return Unauthorized("Nem tudod a saját szolgáltatásodat megvenni!");
+                    }
+                    if (buyer.TimeBalance<newTransaction.TimeAmount)
+                    {
+                        return Forbid("Nincs elegendő egyenleged!");
+                    }
+
                     if (seller != null)
                     {
+                        buyer.TimeBalance -= timeCost;
+                        seller.TimeBalance += timeCost;
                         context.Transactions.Add(newTransaction);
                         await context.SaveChangesAsync();
-                        await Program.SendEmail(context.Users.Where(u => u.UserId == newTransaction.ReceiverId).Select(u => u.Email).FirstOrDefault(), "Tranzakció", $"Megvették a(z) {context.Services
+                        await Program.SendEmail(context.Users.Where(u => u.UserId == newTransaction.ReceiverId).Select(u => u.Email).FirstOrDefault(), "Tranzakció", $"{buyer.FelhasznaloNev}({buyer.Email}) megvette a(z) {context.Services
                                             .Where(s => s.ServiceId == newTransaction.UserServiceId)
                                             .Select(s => s.ServiceName)
                                             .FirstOrDefault()} szolgáltatásodat!:");
-                        await Program.SendEmail(context.Users.Where(u => u.UserId == newTransaction.SenderId).Select(u => u.Email).FirstOrDefault(), "Tranzakció", $"Megvásároltád a(z) szolgáltatást!:");
+                        await Program.SendEmail(context.Users.Where(u => u.UserId == newTransaction.SenderId).Select(u => u.Email).FirstOrDefault(), "Tranzakció", $"Megvásároltád a(z) {context.Services
+                                            .Where(s => s.ServiceId == newTransaction.UserServiceId)
+                                            .Select(s => s.ServiceName)
+                                            .FirstOrDefault()} szolgáltatást {seller.FelhasznaloNev}-tól!:");
                         return Ok(new
                         {
                             SellerEmail = seller.Email,
-                            TransactionCode = transactionCode
+                            TransactionCode = transactionCode,
+                            timeAmst = timeCost
                         });
                     }
                     return NotFound("Hibás eladó");
