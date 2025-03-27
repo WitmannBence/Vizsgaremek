@@ -52,14 +52,14 @@ namespace vizsgaremek.Controllers
                         seller.TimeBalance += timeCost;
                         context.Transactions.Add(newTransaction);
                         await context.SaveChangesAsync();
-                        await Program.SendEmail(context.Users.Where(u => u.UserId == newTransaction.ReceiverId).Select(u => u.Email).FirstOrDefault(), "Tranzakció", $"{buyer.FelhasznaloNev}({buyer.Email}) megvette a(z) {context.Services
+                        await Program.SendEmail(context.Users.Where(u => u.UserId == newTransaction.ReceiverId).Select(u => u.Email).FirstOrDefault(), "Tranzakció", $"{buyer.FelhasznaloNev} ({buyer.Email}) megvette a(z) {context.Services
                                             .Where(s => s.ServiceId == newTransaction.UserServiceId)
                                             .Select(s => s.ServiceName)
-                                            .FirstOrDefault()} szolgáltatásodat!:");
+                                            .FirstOrDefault()} szolgáltatásodat!: A kód: {transactionCode}");
                         await Program.SendEmail(context.Users.Where(u => u.UserId == newTransaction.SenderId).Select(u => u.Email).FirstOrDefault(), "Tranzakció", $"Megvásároltád a(z) {context.Services
                                             .Where(s => s.ServiceId == newTransaction.UserServiceId)
                                             .Select(s => s.ServiceName)
-                                            .FirstOrDefault()} szolgáltatást {seller.FelhasznaloNev}-tól!:");
+                                            .FirstOrDefault()} szolgáltatást {seller.FelhasznaloNev}-tól!:A kód: {transactionCode}");
                         return Ok(new
                         {
                             SellerEmail = seller.Email,
