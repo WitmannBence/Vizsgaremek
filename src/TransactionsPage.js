@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const TransactionsPage = () => {
     const [transactions, setTransactions] = useState([]);
@@ -59,6 +60,10 @@ const TransactionsPage = () => {
                     ))}
                 </tbody>
             </table>
+            <br/>
+            <Link to="/profile">
+            <button className='btn btn-outline-danger'><i class="bi bi-arrow-left"></i></button>
+            </Link>
         </div>
     );
 };

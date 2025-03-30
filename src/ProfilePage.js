@@ -87,11 +87,13 @@ const ProfilePage = () => {
   return (
     <div className="profile-page container">
       <h1 className="profile-title mt-5" style={{textAlign: 'center'}}>Fiókod
-        <br />
-        <Link to="/TransactionsPage">
+
+      </h1>
+      <div className='profileButtonsContainer'>
+      <Link to="/TransactionsPage">
       <button className='cta-button'>Tranzakciók</button>
       </Link>
-      </h1>
+      </div>
 
       {loading ? (
         <div className="loading">Loading user data...</div>
