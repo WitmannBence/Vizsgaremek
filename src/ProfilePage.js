@@ -86,7 +86,12 @@ const ProfilePage = () => {
 
   return (
     <div className="profile-page container">
-      <h1 className="profile-title mt-5" style={{textAlign: 'center'}}>Fiókod</h1>
+      <h1 className="profile-title mt-5" style={{textAlign: 'center'}}>Fiókod
+        <br />
+        <Link to="/TransactionsPage">
+      <button className='cta-button'>Tranzakciók</button>
+      </Link>
+      </h1>
 
       {loading ? (
         <div className="loading">Loading user data...</div>
@@ -102,7 +107,7 @@ const ProfilePage = () => {
                   <div className="row mb-3" key={rowIndex}>
                     {serviceRow.map((service) => (
                       <div className="cardContainer col-md-4 d-flex" key={service.serviceId}>
-                        <div className="card h-100 w-100 shadow">
+                        <div className="card shadow">
                           <div className="card-body d-flex flex-column" style={{alignItems: 'center'}}>
                           <img className="card-img-top rounded image-shadow-s mb-4" src={`https://picsum.photos/id/${Math.round(Math.random()*20)+1}/720`} style={{ height:"128px", width:"128px"}} alt="Service Image" />
                             <h4 className="service-name">{service.serviceName}</h4>

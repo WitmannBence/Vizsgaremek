@@ -39,7 +39,7 @@ export default function Card({
         transactionDate: "",
         transactionCode: "",
         sender: null,
-        userService: null
+        user: null
      })
      .then((response) => {
       alert("Sikeres tranzakció!");

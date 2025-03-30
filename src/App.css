@@ -32,6 +32,34 @@ html {
   box-sizing: border-box;
 }
 
+.transaction{
+  background: #ffffff;
+  padding: 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: 15% 20% 0 20%;
+}
+
+table{
+  border: 2px solid black;
+  margin: auto;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+thead{
+  background-color: lightgray;
+  
+}
+
+th, td {
+  padding: 15px;
+}
+
 .container {
   width: 100%;
   max-width: 1200px;
@@ -65,7 +93,7 @@ html {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   width: 100%;
-  max-width: 240px;
+  max-width: 360px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 

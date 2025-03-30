@@ -10,6 +10,7 @@ import ProfilePage from './ProfilePage';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import CreateServicePage from './CreateServicePage.js';
 import EditServicePage from './EditServicePage.js';
+import TransactionsPage from './TransactionsPage.js';
 
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
             <Route path="/Profile" element={<ProfilePage />} />
             <Route path="/CreateService" element={<CreateServicePage />} />
             <Route path="/EditService/:id" element={<EditServicePage />} />
+            <Route path="/TransactionsPage" element={<TransactionsPage />} />
            </Routes>
         </div>
     );
