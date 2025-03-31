@@ -34,9 +34,21 @@ namespace vizsgaremek.Controllers
                         TransactionCode = transactionCode
                     };
                     var timeCost = await context.Services.Where(s => s.ServiceId == newTransaction.UserServiceId).Select(c => c.TimeCost).FirstOrDefaultAsync();
+                    var sellerid = await context.Services.Where(s => s.ServiceId == newTransaction.UserServiceId).Select(c => c.UserId).FirstOrDefaultAsync();
                     var seller = await context.Users.FirstOrDefaultAsync(u => u.UserId == newTransaction.ReceiverId);
                     var buyer = await context.Users.FirstOrDefaultAsync(u => u.UserId == newTransaction.SenderId);
+                    newTransaction.SenderId = Program.LoggedInUsers[uId].UserId;
+                    newTransaction.ReceiverId = sellerid;
+
                     newTransaction.TimeAmount = timeCost;
+
+                    var existingTransaction = await context.Transactions
+                    .FirstOrDefaultAsync(t => t.SenderId == newTransaction.SenderId && t.UserServiceId == newTransaction.UserServiceId);
+
+                    if (existingTransaction != null)
+                    {
+                        return BadRequest("Ezt a szolgáltatást már megvásároltad!");
+                    }
                     if (buyer == seller)
                     {
                         return Unauthorized("Nem tudod a saját szolgáltatásodat megvenni!");
@@ -99,7 +111,7 @@ namespace vizsgaremek.Controllers
                             TimeAmount = t.TimeAmount,
                             TransactionDate = t.TransactionDate,
                             TransactionCode = t.TransactionCode,
-                            Type = t.SenderId == userId ? "Purchase" : "Sale",
+                            Type = t.SenderId == userId ? "Vásárlás" : "Eladás",
                             CounterpartyEmail = t.SenderId == userId
                                 ? context.Users.Where(u => u.UserId == t.ReceiverId).Select(u => u.Email).FirstOrDefault()
                                 : context.Users.Where(u => u.UserId == t.SenderId).Select(u => u.Email).FirstOrDefault()
