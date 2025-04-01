@@ -8,7 +8,8 @@ export default function Card({
   category,
   createdAt,
   serviceId,
-  ownerId
+  ownerId,
+  isBought
 }) {
 
   const token = localStorage.getItem("token");
@@ -28,19 +29,21 @@ export default function Card({
     "userService": null,
     "user": null
 */
-
-     axios.post(`${process.env.REACT_APP_URL}/api/Transaction/purchase?uId=${token}`, {
-        transactionId: 0,
-        senderId: Number(userID),
-        receiverId: Number(ownerId),
+    let body = {
+      transactionId: 0,
+        senderId: 0,
+        receiverId: 0,
         userServiceId: Number(serviceId),
-        timeAmount: Number(timeCost),
-        description: "Teszt",
-        transactionDate: "",
+        timeAmount: 0,
+        description: "",
+        transactionDate: null,
         transactionCode: "",
         sender: null,
         user: null
-     })
+    }
+
+    console.log(body);
+     axios.post(`${process.env.REACT_APP_URL}/api/Transaction/purchase?uId=${token}`, body)
      .then((response) => {
       alert("Sikeres tranzakció!");
       console.log("Transaction response:", response.data);
@@ -65,7 +68,7 @@ export default function Card({
       <div className="card-body">
         <h3 className="card-title">{serviceName}</h3>
         {
-          localStorage.getItem("userID") == ownerId ? <h4 className="error-message">Saját</h4> : null
+          localStorage.getItem("userID") == ownerId ? <h4 className="error-message">Saját</h4> : isBought ? <h4>Már igénybe vett</h4> : null
         }
         <p><strong>Kategória:</strong> {category}</p>
         <p><strong>Ára</strong> {timeCost} <i className="bi bi-coin"></i></p>
