@@ -79,6 +79,7 @@ namespace vizsgaremek.Controllers
                                             .Where(s => s.ServiceId == t.UserServiceId)
                                             .Select(s => s.ServiceName)
                                             .FirstOrDefault(),
+                                            ID = t.UserServiceId,
                             TimeAmount = t.TimeAmount,
                             TransactionDate = t.TransactionDate,
                             TransactionCode = t.TransactionCode,
