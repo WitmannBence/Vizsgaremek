@@ -13,9 +13,13 @@ function ServicesPage() {
   const [searchInput, setSearchInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [noResults, setNoResults] = useState(false);
+  const [transactions, setTransactions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userID");
   if (!token) {
     navigate("/")
   }
@@ -67,6 +71,23 @@ function ServicesPage() {
   };
 
   useEffect(() => {
+        const fetchTransactions = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_URL}/api/Transaction/transaction-history/${userId}`);
+                setTransactions(response.data);
+            } catch (err) {
+                setError('Failed to fetch transactions');
+            } finally {
+                setLoading(false);
+            }
+
+        };
+        
+        fetchTransactions();
+    }, [userId]);
+  
+
+  useEffect(() => {
     document.title = "Time Bank | Services";
 
     fetchServices();
@@ -102,7 +123,7 @@ function ServicesPage() {
         ) : (
 
       <div className="servicespage mainBackground">
-        {data.map((service) => (
+        {data.map((service, transactions) => (
           <Card
             key={service.serviceId}
             serviceId={service.serviceId}
@@ -111,6 +132,7 @@ function ServicesPage() {
             category={categories.find(cat => cat.categoryId === service.categoryId)?.categoryName || "N/A"}
             createdAt={service.createdAt}
             ownerId={service.userId}
+            isBought={transactions.id}
           />
         ))}
       </div>

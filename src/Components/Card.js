@@ -14,21 +14,11 @@ export default function Card({
 
   const token = localStorage.getItem("token");
   const userID = localStorage.getItem("userID");
+  const timeBalance = localStorage.getItem("timeBalance")
   
+  //Function for purchasing services
   const transactionPost = () => {
 
-/*    "transactionId": 0,
-    "senderId": 1,
-    "receiverId": 6,
-    "userServiceId": 0,
-    "timeAmount": 0,
-    "description": "string",
-    "transactionDate": "2025-03-25T11:36:17.338Z",
-    "transactionCode": "string",
-    "sender": null,
-    "userService": null,
-    "user": null
-*/
     let body = {
       transactionId: 0,
         senderId: 0,
@@ -46,6 +36,8 @@ export default function Card({
      axios.post(`${process.env.REACT_APP_URL}/api/Transaction/purchase?uId=${token}`, body)
      .then((response) => {
       alert("Sikeres tranzakció!");
+      localStorage.setItem("timeBalance", timeBalance - timeCost)
+      window.location.reload();
       console.log("Transaction response:", response.data);
      })
      .catch((error) => {

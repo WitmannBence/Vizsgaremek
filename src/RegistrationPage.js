@@ -51,7 +51,7 @@ const RegistrationPage = () => {
         hash: hash,
         email: formData.email,
         jogosultsag: 0,
-        aktiv: 0, // User is inactive until email verification
+        aktiv: 0,
         regisztracioDatuma: new Date().toISOString(),
         profilKepUtvonal: "",
         timeBalance: 0,

@@ -7,9 +7,9 @@ html {
   height: 100%;
   box-sizing: border-box;
   font-family: "Arial", sans-serif;
-  user-select: none;  /* Prevents text selection */
-  outline: none;     /* Removes the outline around the element */
-  cursor: default;   /* Optionally, sets the cursor to default */
+  user-select: none;
+  outline: none;
+  cursor: default;
   background: linear-gradient(
         45deg,
         #afadad,
@@ -46,6 +46,12 @@ html {
   box-shadow: 2px 2px 10px rgb(0, 0, 0);
   z-index: 4;
 }
+@media(max-height: 1415px){
+  .profileButtonsContainer{
+    
+  }
+}
+
 
 .transaction{
   background: #ffffff;
@@ -82,7 +88,7 @@ th, td {
   padding: 0 1rem;
 }
 
-/* Feature Cards */
+
 .feature-cards {
   display: flex;
   flex-wrap: wrap;
@@ -117,7 +123,7 @@ th, td {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
-/* Buttons */
+
 .cta-button {
   display: inline-block;
   margin-top: 1.5rem;
@@ -139,7 +145,6 @@ th, td {
   transform: scale(1.05);
 }
 
-/* Services Page */
 .servicespage {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -148,7 +153,6 @@ th, td {
   justify-content: center;
 }
 
-/* Service Detail Page */
 .service-detail-container {
   max-width: 800px;
   width: 100%;
@@ -220,11 +224,10 @@ th, td {
 .profile-link {
   display: flex;
   align-items: center;
-  text-decoration: none; /* Removes underline */
-  color: inherit;        /* Inherits the color of surrounding text */
+  text-decoration: none;
+  color: inherit;        
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .full-screen {
     padding: 1rem;
@@ -278,7 +281,7 @@ th, td {
     font-size: 1.25rem;
   }
 }
-/* Navbar jobb oldalra igazítása */
+
 .navbar-nav.ml-auto {
   display: flex;
   align-items: center;
@@ -289,9 +292,9 @@ nav{
   background: whitesmoke;
 }
 
-/* Külön stílusok a username és logout gombhoz */
+
 .username-item {
-  margin-right: 20px; /* Különböző távolság a jobb oldalon */
+  margin-right: 20px;
 }
 
 .logout-item button {
@@ -312,14 +315,14 @@ nav{
 }
 
 .form-card{
-  border: 1px solid #ccc; /* Light gray border */
-  padding: 20px;           /* Padding inside the card */
-  border-radius: 8px;      /* Rounded corners */
-  background-color: white;  /* White background */
-  box-shadow: 10px 30px 125px grey; /* Subtle shadow */
-  max-width: 600px;        /* Max width for the card */
+  border: 1px solid #ccc;
+  padding: 20px;           
+  border-radius: 8px;      
+  background-color: white;
+  box-shadow: 10px 30px 125px grey;
+  max-width: 600px;        
   max-height: 500px;
-  margin: 0 auto;          /* Center the card horizontally */
+  margin: 0 auto;          
   margin-top: 14rem;
   text-align: center;
   border: solid cyan 2px;

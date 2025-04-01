@@ -24,7 +24,7 @@ const ProfilePage = () => {
 
     if (!userId) {
       console.error("User ID not found in localStorage");
-      navigate("/login"); // Redirect to login if userId doesn't exist
+      navigate("/login");
       return;
     }
 
@@ -45,14 +45,13 @@ const ProfilePage = () => {
 
   // Handle delete service function
   const handleDeleteService = (serviceId) => {
-    const token = localStorage.getItem("token"); // Get the token (uId)
+    const token = localStorage.getItem("token");
 
     if (!token) {
       console.error("Token not found in localStorage");
       return;
     }
 
-    // Confirmation dialog before deletion
     if (!window.confirm("Are you sure you want to delete this service?")) return;
 
     // Send DELETE request to the API with serviceId and uId (token)
@@ -64,7 +63,7 @@ const ProfilePage = () => {
 
         if (response.status === 401) {
           console.log("Token expired. Redirecting to login.");
-          navigate("/"); // Redirect to login if token is expired
+          navigate("/");
           return;
         }
         if (!response.ok) throw new Error("Failed to delete service");
