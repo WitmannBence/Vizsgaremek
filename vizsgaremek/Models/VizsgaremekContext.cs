@@ -45,6 +45,9 @@ public partial class VizsgaremekContext : DbContext
                 .HasColumnType("int(11)")
                 .HasColumnName("CategoryID");
             entity.Property(e => e.CategoryName).HasMaxLength(50);
+            entity.Property(e => e.Categoryimg)
+                .HasMaxLength(255)
+                .HasColumnName("categoryimg");
             entity.Property(e => e.Description)
                 .HasDefaultValueSql("'NULL'")
                 .HasColumnType("text");

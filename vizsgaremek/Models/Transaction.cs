@@ -17,9 +17,10 @@ public partial class Transaction
 
     public string? Description { get; set; }
 
-    public DateTime TransactionDate { get; set; }
+    public DateTime? TransactionDate { get; set; }
 
     public string TransactionCode { get; set; } = null!;
 
     public virtual User? Sender { get; set; } = null!;
 }
+
