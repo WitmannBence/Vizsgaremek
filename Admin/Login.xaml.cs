@@ -29,7 +29,7 @@ namespace Admin
        private void btnLogin_Click(object sender, RoutedEventArgs e)
 {
     string username = tbFelhasznalonev.Text;
-    string password = tbJelszo.Text;
+    string password = tbJelszo.Password;
 
     using (var context = new VizsgaremekContext())
     {
