@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -57,21 +58,10 @@ const RegistrationPage = () => {
         timeBalance: 0,
       };
 
-      const response = await fetch(`${process.env.REACT_APP_URL}/api/User/Registry`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
+      const response = await axios.post(`${process.env.REACT_APP_URL}/api/User/Registry`, user);
 
-      if (!response.ok) {
-        let errorMessage = "Hálózati hiba történt";
-        try {
-          const errorData = await response.json();
-          errorMessage = errorData.message || errorMessage;
-        } catch {}
-        throw new Error(errorMessage);
+      if (!response.statusText === "OK") {
+        throw new Error(response.message);
       }
 
       setSuccess("Regisztráció sikeres! Kérjük, erősítsd meg az emailed.");
@@ -86,7 +76,7 @@ const RegistrationPage = () => {
     <section className="hero form-card">
       <h2 className="mb-4">Regisztráció</h2>
       <form onSubmit={handleSubmit}>
-      <i className="bi bi-person-fill me-3"></i>
+        <i className="bi bi-person-fill me-3"></i>
         <input className="mb-2"
           type="text"
           name="felhasznaloNev"

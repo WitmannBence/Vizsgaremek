@@ -116,14 +116,14 @@ function ServicesPage() {
         />
       </div>
 
-      {isLoading ? (<div className="loader">Loading...</div>) : noResults ? (
-          <p className="w-50 mx-auto">
+      {isLoading ? (<div className="loader"></div>) : noResults ? (
+          <p className="w-50 mx-auto no-results-message">
             Nincs találat a kiválasztott kategóriában!
           </p>
         ) : (
 
       <div className="servicespage mainBackground">
-        {data.map((service, transactions) => (
+        {data.map((service) => (
           <Card
             key={service.serviceId}
             serviceId={service.serviceId}
@@ -132,7 +132,7 @@ function ServicesPage() {
             category={categories.find(cat => cat.categoryId === service.categoryId)?.categoryName || "N/A"}
             createdAt={service.createdAt}
             ownerId={service.userId}
-            isBought={transactions.id}
+            isBought={transactions.some(t => t.serviceId === service.serviceId)}
           />
         ))}
       </div>

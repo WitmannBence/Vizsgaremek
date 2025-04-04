@@ -17,6 +17,10 @@ html {
         );
 }
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 .mainBackground{
   height: 100%;
 }
@@ -46,12 +50,6 @@ html {
   box-shadow: 2px 2px 10px rgb(0, 0, 0);
   z-index: 4;
 }
-@media(max-height: 1415px){
-  .profileButtonsContainer{
-    
-  }
-}
-
 
 .transaction{
   background: #ffffff;
@@ -96,7 +94,6 @@ th, td {
   gap: 1.5rem;
   margin: 1rem 0;
   max-width: 1200px;
-  height: 250px;
   width: 100%;
 }
 
@@ -107,6 +104,9 @@ th, td {
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background: #ffffff;
   padding: 1.5rem;
   border: 1px solid #ddd;
@@ -114,8 +114,15 @@ th, td {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   width: 100%;
+  height: 100%;
   max-width: 360px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .card:hover {
@@ -228,58 +235,13 @@ th, td {
   color: inherit;        
 }
 
-@media (max-width: 768px) {
-  .full-screen {
-    padding: 1rem;
-  }
-
-  .feature-cards {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .card {
-    max-width: 100%;
-  }
-
-  .servicespage {
-    grid-template-columns: 1fr;
-  }
-
-  .service-detail-container {
-    border-radius: 8px;
-  }
-
-  .service-title {
-    font-size: 2rem;
-  }
-
-  .service-content {
-    padding: 1.5rem;
-  }
-
-  .service-image {
-    height: 200px;
-  }
+.btn-container .btn {
+  min-width: 120px;
 }
 
-@media (max-width: 480px) {
-  .cta-button {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-  }
-
-  .service-title {
-    font-size: 1.75rem;
-  }
-
-  .service-description {
-    font-size: 1rem;
-  }
-
-  .additional-info-title {
-    font-size: 1.25rem;
-  }
+.button-row {
+  display: flex;
+  gap: 0.5rem;
 }
 
 .navbar-nav.ml-auto {
@@ -299,16 +261,14 @@ nav{
 
 .logout-item button {
   background-color: red;
-  border-color: black;
   border: 50px solid black;
   border-radius: 10%;
-  border: none;
   cursor: pointer;
   padding: 0;
   font-size: 16px;
   margin-top: 9px;
   
-}a
+}
 
 .logout-item button:hover {
   text-decoration: underline;
@@ -368,4 +328,136 @@ nav{
 
 .image-shadow-s{
   box-shadow: 3px 3px 15px rgb(73, 72, 72); 
+}
+
+@media (max-width: 768px) {
+  .profileButtonsContainer {
+    position: static;
+    flex-direction: row;
+    justify-content: center;
+    height: auto;
+    margin: 1rem auto;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .form-card {
+    margin-top: 5rem;
+    padding: 1rem;
+    max-height: none;
+  }
+
+  .search-container {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: stretch;
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  .search-container input,
+  .search-container select {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .full-screen {
+    padding: 1rem;
+  }
+
+  .feature-cards {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+  }
+
+  .card {
+    margin-bottom: 1rem;
+    max-width: 90% !important;
+  }
+
+  .card-title {
+    font-size: 1.3rem;
+  }
+
+  .btn-container .btn {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .servicespage {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .service-detail-container {
+    border-radius: 8px;
+  }
+
+  .service-title {
+    font-size: 2rem;
+  }
+
+  .service-content {
+    padding: 1.5rem;
+  }
+
+  .service-image {
+    height: 200px;
+  }
+}
+
+@media (max-width: 360px) {
+  .cta-button {
+    width: 100%;
+    font-size: 0.85rem;
+    padding: 0.5rem;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+
+  .feature-cards {
+    gap: 1rem;
+  }
+
+  .service-title {
+    font-size: 1.5rem;
+  }
+
+  .service-description,
+  .additional-info-title {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .no-results-message {
+    width: 90% !important;
+    font-size: 0.95rem;
+  }
+
+  .button-row {
+    flex-direction: column;
+  }
+
+  .button-row .btn {
+    width: 100%;
+  }
+}
+
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: auto;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

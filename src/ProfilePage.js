@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -28,13 +29,11 @@ const ProfilePage = () => {
       return;
     }
 
-    fetch(`${process.env.REACT_APP_URL}/api/Service/ServicesByUSERID/${userId}`)
+    axios.get(`${process.env.REACT_APP_URL}/api/Service/ServicesByUSERID/${userId}`)
       .then((response) => {
-        if (!response.ok) throw new Error("Failed to fetch services data");
-        return response.json();
-      })
-      .then((data) => {
-        setServices(Array.isArray(data) ? data : []);
+        if (response.status !== 200) throw new Error("Failed to fetch services data");
+
+        setServices(Array.isArray(response.data) ? response.data : []);
         setLoading(false);
       })
       .catch((error) => {
@@ -55,9 +54,7 @@ const ProfilePage = () => {
     if (!window.confirm("Are you sure you want to delete this service?")) return;
 
     // Send DELETE request to the API with serviceId and uId (token)
-    fetch(`${process.env.REACT_APP_URL}/api/Service?serviceId=${serviceId}&uId=${token}`, {
-      method: "DELETE",
-    })
+    axios.delete(`${process.env.REACT_APP_URL}/api/Service?serviceId=${serviceId}&uId=${token}`)
     .then((response) => {
       console.log(response.status);
 
@@ -66,7 +63,7 @@ const ProfilePage = () => {
           navigate("/");
           return;
         }
-        if (!response.ok) throw new Error("Failed to delete service");
+        if (response.status !== 200) throw new Error("Failed to delete service");
 
         console.log(`Service ${serviceId} deleted successfully`);
         fetchServices()
@@ -99,7 +96,7 @@ const ProfilePage = () => {
       ) : (
         <div>
           {services.length === 0 ? (
-            <p>No active services found for this user.</p>
+            <p>Még nincs aktív szolgáltatásod!</p>
           ) : (
             <div>
               <h3 className='mt-2 mb-5' style={{textAlign: 'center'}}>Az aktív szolgáltatásaid:</h3>
