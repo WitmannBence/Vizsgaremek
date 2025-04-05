@@ -13,7 +13,7 @@ function ServicesPage() {
   const [searchInput, setSearchInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [noResults, setNoResults] = useState(false);
-  const [transactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState(new Set());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -71,21 +71,24 @@ function ServicesPage() {
   };
 
   useEffect(() => {
-        const fetchTransactions = async () => {
-            try {
-                const response = await axios.get(`${process.env.REACT_APP_URL}/api/Transaction/transaction-history/${userId}`);
-                setTransactions(response.data);
-            } catch (err) {
-                setError('Failed to fetch transactions');
-            } finally {
-                setLoading(false);
-            }
+    const fetchTransactions = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_URL}/api/Transaction/transaction-history/${userId}`);
+        console.log("Fetched transactions:", response.data); // Debugging
 
-        };
-        
-        fetchTransactions();
-    }, [userId]);
-  
+        // Extract service IDs from transactions
+        const boughtServiceIds = new Set(response.data.map(transaction => transaction.id));
+        setTransactions(boughtServiceIds); // Store as a Set for efficient lookup
+      } catch (err) {
+        console.error("Error fetching transactions:", err);
+        setError('Failed to fetch transactions');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTransactions();
+  }, [userId]);
 
   useEffect(() => {
     document.title = "Time Bank | Services";
@@ -115,27 +118,32 @@ function ServicesPage() {
           onChange={handleSearchChange}
         />
       </div>
-
-      {isLoading ? (<div className="loader"></div>) : noResults ? (
-          <p className="w-50 mx-auto no-results-message">
-            Nincs találat a kiválasztott kategóriában!
-          </p>
-        ) : (
-
-      <div className="servicespage mainBackground">
-        {data.map((service) => (
-          <Card
-            key={service.serviceId}
-            serviceId={service.serviceId}
-            serviceName={service.serviceName}
-            timeCost={service.timeCost}
-            category={categories.find(cat => cat.categoryId === service.categoryId)?.categoryName || "N/A"}
-            createdAt={service.createdAt}
-            ownerId={service.userId}
-            isBought={transactions.some(t => t.serviceId === service.serviceId)}
-          />
-        ))}
-      </div>
+  
+      {isLoading || loading ? ( // Wait for both services and transactions to load
+        <div className="loader"></div>
+      ) : noResults ? (
+        <p className="w-50 mx-auto no-results-message">
+          Nincs találat a kiválasztott kategóriában!
+        </p>
+      ) : (
+        <div className="servicespage mainBackground">
+          {data.map((service) => {
+            const isBought = transactions.has(service.serviceId); // Check if serviceId exists in the Set
+            console.log(`Service ID: ${service.serviceId}, isBought: ${isBought}`); // Debugging
+            return (
+              <Card
+                key={service.serviceId}
+                serviceId={service.serviceId}
+                serviceName={service.serviceName}
+                timeCost={service.timeCost}
+                category={categories.find(cat => cat.categoryId === service.categoryId)?.categoryName || "N/A"}
+                createdAt={service.createdAt}
+                ownerId={service.userId}
+                isBought={isBought}
+              />
+            );
+          })}
+        </div>
       )}
     </div>
   );
