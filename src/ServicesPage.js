@@ -137,6 +137,7 @@ function ServicesPage() {
                 serviceName={service.serviceName}
                 timeCost={service.timeCost}
                 category={categories.find(cat => cat.categoryId === service.categoryId)?.categoryName || "N/A"}
+                categoryImg={service.categoryImg} // Pass categoryImg to Card
                 createdAt={service.createdAt}
                 ownerId={service.userId}
                 isBought={isBought}

@@ -9,7 +9,8 @@ export default function Card({
   createdAt,
   serviceId,
   ownerId,
-  isBought
+  isBought,
+  categoryImg
 }) {
 
   const token = localStorage.getItem("token");
@@ -59,14 +60,16 @@ export default function Card({
 
   return (
     <div className="card shadow-sm border-0" style={{ width: "100%", maxWidth: "600px", margin: "0 auto" }}>
-      <img className="card-img-top rounded-top image-shadow-s mt-1 mb-2" src={`https://picsum.photos/id/${Math.round(Math.random() * 20) + 1}/1920`} alt="Card image cap" />
+      <img 
+        className="card-img-top rounded-top image-shadow-s mt-1 mb-2" 
+        src={categoryImg || `https://picsum.photos/id/${Math.round(Math.random() * 20) + 1}/1920`} 
+        alt="Card image cap" 
+      />
       <div className="card-body">
         <h3 className="card-title">{serviceName}</h3>
 
         {isOwner && <h4 className="error-message">Saját</h4>}
-        {!isOwner && isBought && <h4 className="error-message">Már igénybe vett</h4>}
-
-        <p><strong>Kategória:</strong> {category}</p>
+        {!isOwner && isBought && <h4 className="success-message">Már igénybe vett</h4>}
         <p><strong>Ára:</strong> {timeCost} <i className="bi bi-coin"></i></p>
         <p><strong>Feltöltés ideje:</strong> {formattedDate}</p>
 
