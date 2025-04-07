@@ -57,7 +57,7 @@ function ServiceDetailPage() {
         
             <h1 className="mt-5">{service.serviceName ? service.serviceName : "Service Name"}</h1>
           <div className="service-detail-card mt-5 " style={{alignItems:"center"}}>
-          <img className="card-img-top rounded image-shadow" src={service.categoryImg} style={{height:"400px", width:"400px"}} alt="Service Image" />
+          <img className="card-img-top rounded image-shadow" src={service.categoryimg} style={{height:"400px", width:"400px"}} alt="Service Image" />
           <div className="service-content mt-5">  <p className="service-description">{service.description ? service.description : "No description available"}</p>
             <div className="service-info">
               <p>

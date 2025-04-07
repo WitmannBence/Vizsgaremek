@@ -10,7 +10,7 @@ export default function Card({
   serviceId,
   ownerId,
   isBought,
-  categoryImg
+  categoryimg
 }) {
 
   const token = localStorage.getItem("token");
@@ -62,7 +62,7 @@ export default function Card({
     <div className="card shadow-sm border-0" style={{ width: "100%", maxWidth: "600px", margin: "0 auto" }}>
       <img 
         className="card-img-top rounded-top image-shadow-s mt-1 mb-2" 
-        src={categoryImg || `https://picsum.photos/id/${Math.round(Math.random() * 20) + 1}/1920`} 
+        src={categoryimg || `https://picsum.photos/id/${Math.round(Math.random() * 20) + 1}/1920`} 
         alt="Card image cap" 
       />
       <div className="card-body">

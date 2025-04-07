@@ -107,7 +107,7 @@ const ProfilePage = () => {
                       <div className="cardContainer col-md-4 d-flex" key={service.serviceId}>
                         <div className="card shadow">
                           <div className="card-body d-flex flex-column" style={{alignItems: 'center'}}>
-                          <img className="card-img-top rounded image-shadow-s mb-4" src={service.categoryImg} style={{ height:"128px", width:"128px"}} alt="Service Image" />
+                          <img className="card-img-top rounded image-shadow-s mb-4" src={service.categoryimg} style={{ height:"128px", width:"128px"}} alt="Service Image" />
                             <h4 className="service-name">{service.serviceName}</h4>
                             <p><strong>Ára:</strong> {service.timeCost} <i className="bi bi-coin"></i></p>
                             <p><strong>Leírás:</strong> {service.description}</p>
