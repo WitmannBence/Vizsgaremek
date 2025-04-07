@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Ápr 03. 08:15
--- Kiszolgáló verziója: 10.4.20-MariaDB
--- PHP verzió: 7.3.29
+-- Létrehozás ideje: 2025. Ápr 07. 13:05
+-- Kiszolgáló verziója: 10.4.28-MariaDB
+-- PHP verzió: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,7 +32,7 @@ CREATE TABLE `categories` (
   `CategoryName` varchar(50) NOT NULL,
   `Description` text DEFAULT NULL,
   `categoryimg` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- A tábla adatainak kiíratása `categories`
@@ -48,7 +48,7 @@ INSERT INTO `categories` (`CategoryID`, `CategoryName`, `Description`, `category
 (7, 'Költöztetés', 'Bútorszállítás és költöztetési szolgáltatások', 'https://media.istockphoto.com/id/460758181/photo/young-couple-watching-movers-move-boxes-from-the-moving-van.jpg?s=612x612&w=0&k=20&c=7-3QH4dVWci00sDBB7K0HPTwTsNZ7tJCLEG6NM2IxWg='),
 (8, 'Építkezés', 'Építőipari és felújítási munkák', 'https://media.istockphoto.com/id/1456825248/photo/structural-engineer-and-architect-working-with-blueprints-discuss-at-the-outdoors.jpg?s=612x612&w=0&k=20&c=Eg9xbC2aedsbPnnSmkbvMIa-Je431L8K9_cS7FHMB5M='),
 (9, 'Szépségápolás', 'Fodrászat, kozmetika és egyéb szépségápolási szolgáltatások', 'https://t4.ftcdn.net/jpg/02/94/48/79/360_F_294487925_dA3QE5beRMRNE89uEBy9SHNSdmgl2q0W.jpg'),
-(10, 'Oktatás', 'Magánórák és tanítási szolgáltatások', 'https://media.istockphoto.com/id/1456825248/photo/structural-engineer-and-architect-working-with-blueprints-discuss-at-the-outdoors.jpg?s=612x612&w=0&k=20&c=Eg9xbC2aedsbPnnSmkbvMIa-Je431L8K9_cS7FHMB5M='),
+(10, 'Oktatás', 'Magánórák és tanítási szolgáltatások', 'https://media.istockphoto.com/id/1410336912/photo/happy-teacher-and-schoolgirl-giving-high-five-during-class-at-school.jpg?s=612x612&w=0&k=20&c=waX0PDd_PLqbyY6yBkIj-AL_7RD0J0hzjLHi1S7f8Eo='),
 (11, 'Egyéb', 'Minden egyéb szolgáltatás, ami nem illik a többi kategóriába', 'https://cdn.pixabay.com/photo/2015/11/03/09/03/question-mark-1019993_640.jpg');
 
 -- --------------------------------------------------------
@@ -62,7 +62,7 @@ CREATE TABLE `privileges` (
   `nev` varchar(100) NOT NULL,
   `description` text NOT NULL,
   `szint` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- A tábla adatainak kiíratása `privileges`
@@ -87,28 +87,28 @@ CREATE TABLE `services` (
   `Description` text DEFAULT NULL,
   `CreatedAt` timestamp NOT NULL DEFAULT current_timestamp(),
   `CategoryID` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- A tábla adatainak kiíratása `services`
 --
 
 INSERT INTO `services` (`ServiceID`, `UserID`, `ServiceName`, `TimeCost`, `Description`, `CreatedAt`, `CategoryID`) VALUES
-(1, 1, 'Olajcsere', '10.00', 'Személyautó olajcseréje', '2025-02-24 10:00:28', 6),
-(2, 6, 'Fékbetét csere', '15.00', 'Első és hátsó fékbetétek cseréje', '2025-02-24 10:00:28', 6),
-(3, 1, 'Lakásköltöztetés', '20.00', 'Teljes körű lakásköltöztetés', '2025-02-24 10:00:28', 7),
-(4, 6, 'Bútorszállítás', '25.00', 'Nehéz bútorok szállítása', '2025-02-24 10:00:28', 7),
-(5, 1, 'Burkolás', '30.00', 'Csempe- és járólap burkolás', '2025-02-24 10:00:28', 8),
-(6, 6, 'Falazás', '10.00', 'Téglafalak építése', '2025-02-24 10:00:28', 8),
-(7, 1, 'Fodrász hajvágás', '0.00', 'Professzionális hajvágás', '2025-02-24 10:00:28', 9),
-(8, 6, 'Kozmetikai kezelés', '5.00', 'Arckezelés és bőrápolás', '2025-02-24 10:00:28', 9),
-(9, 1, 'Angol nyelvóra', '15.00', 'Egyéni angol nyelvoktatás', '2025-02-24 10:00:28', 10),
-(10, 6, 'Matematika korrepetálás', '20.00', 'Középiskolai matek tanítás', '2025-02-24 10:00:28', 10),
-(11, 1, 'Drónfelvétel készítés', '30.00', 'Légi felvételek készítése drónnal', '2025-02-24 10:01:06', 11),
-(12, 6, 'Bicikli javítás', '50.00', 'Kerékpár szervizelés és karbantartás', '2025-02-24 10:01:06', 11),
-(13, 1, 'Háztartási gépek szerelése', '10.00', 'Mosógép, hűtő, sütő javítása', '2025-02-24 10:01:06', 11),
-(14, 6, 'Online Coding Lesson', '10.00', 'Can help in C#, Javascript and more!', '2025-02-21 08:25:21', 4),
-(15, 1, 'Fotózás', '25.00', 'Portré, esküvő és rendezvényfotózás', '2025-02-24 10:01:06', 11);
+(1, 1, 'Olajcsere', 10.00, 'Személyautó olajcseréje', '2025-02-24 10:00:28', 6),
+(2, 6, 'Fékbetét csere', 15.00, 'Első és hátsó fékbetétek cseréje', '2025-02-24 10:00:28', 6),
+(3, 1, 'Lakásköltöztetés', 20.00, 'Teljes körű lakásköltöztetés', '2025-02-24 10:00:28', 7),
+(4, 6, 'Bútorszállítás', 25.00, 'Nehéz bútorok szállítása', '2025-02-24 10:00:28', 7),
+(5, 1, 'Burkolás', 30.00, 'Csempe- és járólap burkolás', '2025-02-24 10:00:28', 8),
+(6, 6, 'Falazás', 10.00, 'Téglafalak építése', '2025-02-24 10:00:28', 8),
+(7, 1, 'Fodrász hajvágás', 0.00, 'Professzionális hajvágás', '2025-02-24 10:00:28', 9),
+(8, 6, 'Kozmetikai kezelés', 5.00, 'Arckezelés és bőrápolás', '2025-02-24 10:00:28', 9),
+(9, 1, 'Angol nyelvóra', 15.00, 'Egyéni angol nyelvoktatás', '2025-02-24 10:00:28', 10),
+(10, 6, 'Matematika korrepetálás', 20.00, 'Középiskolai matek tanítás', '2025-02-24 10:00:28', 10),
+(11, 1, 'Drónfelvétel készítés', 30.00, 'Légi felvételek készítése drónnal', '2025-02-24 10:01:06', 11),
+(12, 6, 'Bicikli javítás', 50.00, 'Kerékpár szervizelés és karbantartás', '2025-02-24 10:01:06', 11),
+(13, 1, 'Háztartási gépek szerelése', 10.00, 'Mosógép, hűtő, sütő javítása', '2025-02-24 10:01:06', 11),
+(14, 6, 'Online Coding Lesson', 10.00, 'Can help in C#, Javascript and more!', '2025-02-21 08:25:21', 4),
+(15, 1, 'Fotózás', 25.00, 'Portré, esküvő és rendezvényfotózás', '2025-02-24 10:01:06', 11);
 
 -- --------------------------------------------------------
 
@@ -125,14 +125,14 @@ CREATE TABLE `transactions` (
   `Description` text DEFAULT NULL,
   `TransactionDate` timestamp NOT NULL DEFAULT current_timestamp(),
   `TransactionCode` varchar(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- A tábla adatainak kiíratása `transactions`
 --
 
 INSERT INTO `transactions` (`TransactionID`, `SenderID`, `ReceiverID`, `UserServiceID`, `TimeAmount`, `Description`, `TransactionDate`, `TransactionCode`) VALUES
-(4, 1, 6, 1, '0.00', 'Service reserved', '2025-03-25 12:24:08', '698XD4');
+(4, 1, 6, 1, 0.00, 'Service reserved', '2025-03-25 12:24:08', '698XD4');
 
 -- --------------------------------------------------------
 
@@ -142,15 +142,15 @@ INSERT INTO `transactions` (`TransactionID`, `SenderID`, `ReceiverID`, `UserServ
 
 CREATE TABLE `user` (
   `UserID` int(11) NOT NULL,
-  `FelhasznaloNev` varchar(100) COLLATE utf8mb4_hungarian_ci NOT NULL,
-  `TeljesNev` varchar(60) COLLATE utf8mb4_hungarian_ci NOT NULL,
-  `SALT` varchar(64) COLLATE utf8mb4_hungarian_ci NOT NULL,
-  `HASH` varchar(64) COLLATE utf8mb4_hungarian_ci NOT NULL,
-  `Email` varchar(100) COLLATE utf8mb4_hungarian_ci NOT NULL,
+  `FelhasznaloNev` varchar(100) NOT NULL,
+  `TeljesNev` varchar(60) NOT NULL,
+  `SALT` varchar(64) NOT NULL,
+  `HASH` varchar(64) NOT NULL,
+  `Email` varchar(100) NOT NULL,
   `Jogosultsag` int(1) NOT NULL,
   `Aktiv` int(1) NOT NULL,
   `RegisztracioDatuma` datetime DEFAULT current_timestamp(),
-  `ProfilKepUtvonal` varchar(64) COLLATE utf8mb4_hungarian_ci NOT NULL,
+  `ProfilKepUtvonal` varchar(64) NOT NULL,
   `TimeBalance` decimal(10,2) DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
@@ -159,8 +159,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`UserID`, `FelhasznaloNev`, `TeljesNev`, `SALT`, `HASH`, `Email`, `Jogosultsag`, `Aktiv`, `RegisztracioDatuma`, `ProfilKepUtvonal`, `TimeBalance`) VALUES
-(1, 'LakatosI', 'Lakatos István', 'zRNnKIdBWprmDl0y7opRWQdvSIDDaCknTrqli8zd0VQ3ilTziKHlAJcUmwR66laF', 'e01b3f5e704025326ed773a974c28694af262f98787441aaef327fc211b949da', 'lakatosi@gmail.com', 9, 1, '2024-11-25 07:33:49', '', '0.00'),
-(6, 'buda', 'Budaházi Máté', 'lI1SbWrxy0kdcqtJZtKcMcQR7EonQU9NdFtznzXHzG68ynD8s75wGRaQal2z6Sl2', '63aedc15c2abde348633b2d3f058597366bad4713405b12732951a96b8b249b3', 'budahazim@kkszki.hu', 1, 1, '2025-02-21 10:23:21', 'string', '30.00');
+(1, 'LakatosI', 'Lakatos István', 'zRNnKIdBWprmDl0y7opRWQdvSIDDaCknTrqli8zd0VQ3ilTziKHlAJcUmwR66laF', 'e01b3f5e704025326ed773a974c28694af262f98787441aaef327fc211b949da', 'lakatosi@gmail.com', 9, 1, '2024-11-25 07:33:49', '', 0.00),
+(6, 'buda', 'Budaházi Máté', 'lI1SbWrxy0kdcqtJZtKcMcQR7EonQU9NdFtznzXHzG68ynD8s75wGRaQal2z6Sl2', '63aedc15c2abde348633b2d3f058597366bad4713405b12732951a96b8b249b3', 'budahazim@kkszki.hu', 1, 1, '2025-02-21 10:23:21', 'string', 30.00);
 
 -- --------------------------------------------------------
 
@@ -172,7 +172,7 @@ CREATE TABLE `user_services` (
   `id` int(11) NOT NULL,
   `UserID` int(11) NOT NULL,
   `ServiceID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- A tábla adatainak kiíratása `user_services`
