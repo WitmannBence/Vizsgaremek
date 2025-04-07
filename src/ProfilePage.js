@@ -12,7 +12,7 @@ const ProfilePage = () => {
     navigate("/")
   }
 
-  document.title = "Time Bank | Profile"
+  document.title = "Time Bank | Profil"
 
   // Fetch services on component mount
   useEffect(() => {
@@ -51,7 +51,7 @@ const ProfilePage = () => {
       return;
     }
 
-    if (!window.confirm("Are you sure you want to delete this service?")) return;
+    if (!window.confirm("Biztosan kitörlöd a szolgáltatást?")) return;
 
     // Send DELETE request to the API with serviceId and uId (token)
     axios.delete(`${process.env.REACT_APP_URL}/api/Service?serviceId=${serviceId}&uId=${token}`)
@@ -82,9 +82,9 @@ const ProfilePage = () => {
 
   return (
     <div className="profile-page container">
-      <h1 className="profile-title mt-5" style={{textAlign: 'center'}}>Fiókod
+      <h1 className="profile-title mt-5" style={{textAlign: 'center'}}>Fiókod</h1>
 
-      </h1>
+      {/* Add more buttons here for profile interactions, such as logout, password change, etc., if needed */}
       <div className='profileButtonsContainer'>
       <Link to="/TransactionsPage">
       <button className='cta-button'>Tranzakciók</button>
@@ -107,7 +107,7 @@ const ProfilePage = () => {
                       <div className="cardContainer col-md-4 d-flex" key={service.serviceId}>
                         <div className="card shadow">
                           <div className="card-body d-flex flex-column" style={{alignItems: 'center'}}>
-                          <img className="card-img-top rounded image-shadow-s mb-4" src={`https://picsum.photos/id/${Math.round(Math.random()*20)+1}/720`} style={{ height:"128px", width:"128px"}} alt="Service Image" />
+                          <img className="card-img-top rounded image-shadow-s mb-4" src={service.categoryImg} style={{ height:"128px", width:"128px"}} alt="Service Image" />
                             <h4 className="service-name">{service.serviceName}</h4>
                             <p><strong>Ára:</strong> {service.timeCost} <i className="bi bi-coin"></i></p>
                             <p><strong>Leírás:</strong> {service.description}</p>

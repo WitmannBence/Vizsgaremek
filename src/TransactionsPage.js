@@ -7,12 +7,13 @@ const TransactionsPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     
-    const userId = localStorage.getItem('userID');
+    const token = localStorage.getItem('token');
+    document.title = "Time Bank | Tranzakciók"
 
     useEffect(() => {
         const fetchTransactions = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_URL}/api/Transaction/transaction-history/${userId}`);
+                const response = await axios.get(`${process.env.REACT_APP_URL}/api/Transaction/transaction-history?uId=${token}`);
                 setTransactions(response.data);
             } catch (err) {
                 setError('Failed to fetch transactions');
@@ -22,7 +23,7 @@ const TransactionsPage = () => {
         };
         
         fetchTransactions();
-    }, [userId]);
+    }, [token]);
     
     if (loading) return <p>Loading transactions...</p>;
     if (error) return <p>{error}</p>;

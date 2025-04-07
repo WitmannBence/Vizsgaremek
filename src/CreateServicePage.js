@@ -19,7 +19,7 @@ const CreateServicePage = () => {
     navigate("/")
   }
 
-  document.title = "Time Bank | Create Service"
+  document.title = "Time Bank | Létrehozás"
 
   useEffect(() => {
     // Fetch categories

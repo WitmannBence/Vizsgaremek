@@ -24,7 +24,7 @@ const EditServicePage = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  document.title = "Time Bank | Edit Service"
+  document.title = "Time Bank | Módosítás"
 
   useEffect(() => {
     if (!id) {

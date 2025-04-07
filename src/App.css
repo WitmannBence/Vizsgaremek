@@ -45,7 +45,7 @@ html {
   padding: 10px;
   align-items: center;
   border-radius: 5%;
-  height: 200px;
+  height: 115px;
   background-color: white;
   box-shadow: 2px 2px 10px rgb(0, 0, 0);
   z-index: 4;
@@ -58,7 +58,7 @@ html {
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
-  margin: 15% 20% 0 20%;
+  margin: 10% 20% 0 20%;
 }
 
 table{

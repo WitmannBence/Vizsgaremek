@@ -7,7 +7,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-      document.title = "Time Bank | Login"
+      document.title = "Time Bank | Bejelentkezés";
     
     }, [])
     

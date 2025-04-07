@@ -24,16 +24,14 @@ function ServicesPage() {
     navigate("/")
   }
 
-  let base_url = process.env.REACT_APP_URL;
-
   const fetchServices = (categoryId = "", input = "") => {
-    let url = `${base_url}/api/Service/AllService`;
+    let url = `${process.env.REACT_APP_URL}/api/Service/AllService`;
     if (categoryId && input) {
-      url = `${base_url}/api/Service/SearchService?input=${input}&categoryId=${categoryId}`;
+      url = `${process.env.REACT_APP_URL}/api/Service/SearchService?input=${input}&categoryId=${categoryId}`;
     } else if (categoryId) {
-      url = `${base_url}/api/Category/CategorySearch/${categoryId}`;
+      url = `${process.env.REACT_APP_URL}/api/Category/CategorySearch/${categoryId}`;
     } else if (input) {
-      url = `${base_url}/api/Service/SearchService?input=${input}`;
+      url = `${process.env.REACT_APP_URL}/api/Service/SearchService?input=${input}`;
     }
 
     setIsLoading(true);
@@ -51,7 +49,7 @@ function ServicesPage() {
   };  
 
   const fetchCategories = () => {
-    axios.get(`${base_url}/api/Category/CategoryList`)
+    axios.get(`${process.env.REACT_APP_URL}/api/Category/CategoryList`)
       .then((response) => {
         setCategories(response.data);
       })
@@ -91,7 +89,7 @@ function ServicesPage() {
   }, [userId]);
 
   useEffect(() => {
-    document.title = "Time Bank | Services";
+    document.title = "Time Bank | Szolgáltatások";
 
     fetchServices();
     fetchCategories();
@@ -137,7 +135,7 @@ function ServicesPage() {
                 serviceName={service.serviceName}
                 timeCost={service.timeCost}
                 category={categories.find(cat => cat.categoryId === service.categoryId)?.categoryName || "N/A"}
-                categoryImg={service.categoryImg} // Pass categoryImg to Card
+                categoryImg={service.categoryImg} 
                 createdAt={service.createdAt}
                 ownerId={service.userId}
                 isBought={isBought}

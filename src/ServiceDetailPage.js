@@ -20,7 +20,7 @@ function ServiceDetailPage() {
       setLoading(false)
       return
     }
-    document.title = "Time Bank | Service Details"
+    document.title = "Time Bank | Részletek"
     setLoading(true)
     setError(null)
 
@@ -57,7 +57,7 @@ function ServiceDetailPage() {
         
             <h1 className="mt-5">{service.serviceName ? service.serviceName : "Service Name"}</h1>
           <div className="service-detail-card mt-5 " style={{alignItems:"center"}}>
-          <img className="card-img-top rounded image-shadow" src={`https://picsum.photos/id/${Math.round(Math.random()*20)+1}/2000`} style={{height:"400px", width:"400px"}} alt="Service Image" />
+          <img className="card-img-top rounded image-shadow" src={service.categoryImg} style={{height:"400px", width:"400px"}} alt="Service Image" />
           <div className="service-content mt-5">  <p className="service-description">{service.description ? service.description : "No description available"}</p>
             <div className="service-info">
               <p>

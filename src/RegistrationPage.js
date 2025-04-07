@@ -13,7 +13,7 @@ const RegistrationPage = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
-  document.title = "Time Bank | Registration"
+  document.title = "Time Bank | Regisztráció";
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
