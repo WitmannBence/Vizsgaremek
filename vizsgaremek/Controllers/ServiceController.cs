@@ -84,7 +84,7 @@ namespace vizsgaremek.Controllers
                                 .FirstOrDefault(),
                             CategoryName = context.Categories.Where(cat=> cat.CategoryId == service.CategoryId).Select(cat=> cat.CategoryName).FirstOrDefault(),
 
-                            CategoryImg = context.Categories.Where(cat=>cat.CategoryId == service.CategoryId).Select(cat => cat.Categoryimg).FirstOrDefault(),
+                            Categoryimg = context.Categories.Where(cat=>cat.CategoryId == service.CategoryId).Select(cat => cat.Categoryimg).FirstOrDefault(),
                         })
                         .ToList();
 
@@ -125,7 +125,7 @@ namespace vizsgaremek.Controllers
                                 .Select(user => user.FelhasznaloNev)
                                 .FirstOrDefault(),
                             CategoryName = context.Categories.Where(cat => cat.CategoryId == service.CategoryId).Select(cat => cat.CategoryName).FirstOrDefault(),
-                           CategoryImg = context.Categories.Where(cat => cat.CategoryId == service.CategoryId).Select(cat => cat.Categoryimg).FirstOrDefault(),
+                           Categoryimg = context.Categories.Where(cat => cat.CategoryId == service.CategoryId).Select(cat => cat.Categoryimg).FirstOrDefault(),
                        }).ToList();
                         
 
@@ -162,7 +162,7 @@ namespace vizsgaremek.Controllers
                                 .Select(user => user.FelhasznaloNev)
                                 .FirstOrDefault(),
                             CategoryName = context.Categories.Where(cat => cat.CategoryId == service.CategoryId).Select(cat => cat.CategoryName).FirstOrDefault(),
-                            CategoryImg = context.Categories.Where(cat => cat.CategoryId == service.CategoryId).Select(cat => cat.Categoryimg).FirstOrDefault(),
+                            Categoryimg = context.Categories.Where(cat => cat.CategoryId == service.CategoryId).Select(cat => cat.Categoryimg).FirstOrDefault(),
                         }).FirstOrDefault();
                         
 
@@ -287,7 +287,7 @@ namespace vizsgaremek.Controllers
                                 .Select(user => user.FelhasznaloNev)
                                 .FirstOrDefault(),
                             CategoryName = context.Categories.Where(cat => cat.CategoryId == service.CategoryId).Select(cat => cat.CategoryName).FirstOrDefault(),
-                            CategoryImg = context.Categories.Where(cat => cat.CategoryId == service.CategoryId).Select(cat => cat.Categoryimg).FirstOrDefault(),
+                            Categoryimg = context.Categories.Where(cat => cat.CategoryId == service.CategoryId).Select(cat => cat.Categoryimg).FirstOrDefault(),
                         }).Distinct().ToList();
                        
 
