@@ -105,13 +105,18 @@ namespace vizsgaremek.Controllers
 
 
 
-        [HttpGet("transaction-history/{userId}")]
-        public async Task<IActionResult> GetTransactionHistory(int userId)
+        [HttpGet("transaction-history")]
+        public async Task<IActionResult> GetTransactionHistory(string uId)
         {
             using (var context = new VizsgaremekContext())
             {
                 try
                 {
+                    if (!Program.LoggedInUsers.ContainsKey(uId))
+                    {
+                        return Unauthorized("Nem vagy bejelentkezve");
+                    }
+                    var userId = Program.LoggedInUsers[uId].UserId;
                     var transactions = await context.Transactions
                         .Where(t => t.SenderId == userId || t.ReceiverId == userId)
                         .OrderByDescending(t => t.TransactionDate) 

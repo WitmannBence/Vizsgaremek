@@ -273,9 +273,23 @@ namespace vizsgaremek.Controllers
                 try
                 {
                     var services = context.Services
-                        .Where(s => s.ServiceName.Contains(input) || s.Description.Contains(input))
-                        .Distinct()
-                        .ToList();
+                        .Where(s => s.ServiceName.Contains(input) || s.Description.Contains(input)).Select(service => new
+                        {
+                            service.ServiceId,
+                            service.UserId,
+                            service.ServiceName,
+                            service.TimeCost,
+                            service.Description,
+                            service.CreatedAt,
+                            service.CategoryId,
+                            FelhasznaloNev = context.Users
+                                .Where(user => user.UserId == service.UserId)
+                                .Select(user => user.FelhasznaloNev)
+                                .FirstOrDefault(),
+                            CategoryName = context.Categories.Where(cat => cat.CategoryId == service.CategoryId).Select(cat => cat.CategoryName).FirstOrDefault(),
+                            CategoryImg = context.Categories.Where(cat => cat.CategoryId == service.CategoryId).Select(cat => cat.Categoryimg).FirstOrDefault(),
+                        }).Distinct().ToList();
+                       
 
                     return Ok(services);
                 }
